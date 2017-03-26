@@ -21,32 +21,30 @@ class BesoinsMgr():
     def create(self, intitule, primaire=False):
         self.cursor.execute("""INSERT INTO besoins (intitule,primaire) VALUES(?,?)""", (intitule, primaire))
         id_besoin = self.cursor.lastrowid
-        self.cursor.close()
         return Besoin(id_besoin, intitule, primaire)
 
     def delete(self, besoin):
         if (isinstance(besoin, Besoin)):
             self.cursor.execute("""DELETE * FROM besoins WHERE id_besoin = ?""", (besoin.id_besoin))
-            self.cursor.close()
 
     def read(self, id_besoin=None):
         if (id_besoin):
             besoin = self.cursor.execute("""SELECT * FROM besoins WHERE id_besoin = ?""", (str(id_besoin)))
             data = self.cursor.fetchone()
+            print(data)
+
             return Besoin(data[0], data[1], data[2])
         q = self.cursor.execute("""SELECT * FROM besoins""")
         besoins = self.cursor.fetchall()
         for i, besoin in enumerate(besoins):
             besoins[i] = Besoin(besoin[0], besoin[1], besoin[2])
         print(besoins)
-        self.cursor.close()
         return besoins
 
     def update(self, besoin):
         if (isinstance(besoin, Besoin)):
             self.cursor.execute("""UPDATE besoins SET intitule = ?, primaire=? WHERE id_besoin = ?""",
                                 (besoin.intitule, besoin.primaire, besoin.id_besoin))
-            self.cursor.close()
 
 
 class PieceMgr():
@@ -54,39 +52,30 @@ class PieceMgr():
         self.db = db
         self.cursor = db.cursor()
 
-    def closeDb(self):
-        self.cursor.commit()
-        self.cursor.close()
-
     def create(self, nom_piece, couleur):
         self.cursor.execute("""INSERT INTO pieces (nom_piece,couleur) VALUES(:nom,:couleur)""",
                             {nom: nom_piece, couleur: couleur})
         id_piece = self.cursor.lastrowid
-        self.cursor.close()
         return Exigence(id_piece, nom_piece, couleur)
 
     def delete(self, piece):
         if (isinstance(piece, Piece)):
             self.cursor.execute("""DELETE * FROM pieces WHERE id_piece = ?""", (piece.id_piece()))
-            self.cursor.close()
 
     def read(self, id_piece=None):
         if (id_piece):
             piece = self.cursor.execute("""SELECT * FROM pieces WHERE id_piece = ?""", (id_piece))
-            return Piece(piece[0], piece[1], piece[2])
-        q = self.cursor.execute("""SELECT * FROM pieces""")
-        pieces = self.cursor.fetchall()
-        self.closeDb()
-        for i, piece in enumerate(pieces):
-            pieces[i] = Piece(piece[0], piece[1], piece[2])
+            return Piece(piece)  #
+        pieces = self.cursor.execute("""SELECT * FROM pieces""")
+        for piece in pieces:
+            piece = Piece(piece)
         return pieces
 
     def update(self, piece):
         if (isinstance(piece, Piece)):
             self.cursor.execute(
                 """UPDATE pieces SET nom_piece = ?, couleur = ? WHERE id_piece = ?""",
-                (piece.nom_piece, piece.couleur, piece.id_piece))
-            self.cursor.close()
+                {piece.nom_piece, piece.couleur, piece.id_piece})
 
 
 class ExigencesMgr():
@@ -100,13 +89,11 @@ class ExigencesMgr():
         VALUES (?,?,?,?,?,?)""",
                             (critere, niveau, intitule, besoin, espece, exigence_mere))
         idex = self.cursor.lastrowid
-        self.cursor.close()
         return Exigence(idex, intitule, critere, besoin, espece, niveau, exigence_mere)
 
     def delete(self, exigence):
         if (isinstance(exigence, Exigence)):
             self.cursor.execute("""DELETE * FROM exigences WHERE idex = ?""", (exigence.idex()))
-            self.cursor.close()
 
     def read(self, idex=None):
         if (idex):
@@ -124,7 +111,6 @@ class ExigencesMgr():
             exigences[i] = Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[6], exigence[9])
             print(exigences[i])
             print('\n')
-        self.cursor.close()
         return exigences
 
     def update(self, exigence):
@@ -139,11 +125,9 @@ class ExigencesMgr():
             WHERE idex = ?""",
                                 (exigence.critere, exigence.niveau, exigence.intitule, exigence.espece, exigence.besoin,
                                  exigence.exigence_mere, exigence.idex))
-            self.cursor.close()
 
     def conclure(self, idex, conclusion):
         self.cursor.execute("""UPDATE exigences SET conclusion = ? WHERE idex = ?""", (conclusion, idex))
-        self.cursor.close()
 
     def validerExigences(self, exigence=None):
         if isinstance(exigence, Exigence):
@@ -192,27 +176,3 @@ class ExigencesMgr():
                     exigences.remove(exigence)
             niveaux.append(niveau)
             self.hierarchie(exigences, niveaux)
-
-    class ErrorMgr():
-        def __init__(self, db):
-            self.db = db
-            self.cursor = db.cursor
-
-        def read(self):
-            self.cursor.execute("""SELECT * FROM error""")
-
-            self.cursor.close()
-            # to continue...
-
-        def create(self, intitule, type):
-            self.cursor.execute("""INSERT INTO errors SET intitule= ?, type = ?""", (intitule, type))
-            self.cursor.close()
-
-        def delete(self, id_error):
-            self.cursor.execute("""DELETE * FROM errors  WHERE id_error = ?""", (id_error))
-            self.cursor.close()
-
-        def delete(self, error):
-            self.cursor.update("""UPDATE errors SET intitule = ?,type=? WHERE id_error = ?""",
-                               (error.intitule, error.type, error.id_error))
-            self.cursor.close()

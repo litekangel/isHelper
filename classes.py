@@ -2,23 +2,9 @@
 """
 Éditeur de Spyder
 
-Ceci est tout sauf un script temporaire.
+Ceci est un script temporaire.
 """
 
-
-class Error:
-    def __init__(self, id_error, intitule, type):
-        self.id_error = id_error
-        self.intitule = intitule
-        self.type = type
-        # Une erreur peut être:
-        #  soit un avertissement/mise en garde, en jaune: 1
-        #  soit un danger en rouge : 0 insupprimable tant que pas corrigé
-        #  soit un succès en vert : 2
-
-    def corriger(self):
-        self.type = 2
-        # Ensuite il faut mettre à jour la base de données dans le controller
 
 class Besoin:
     def __init__(self, id_besoin, intitule, primaire=False):
@@ -37,14 +23,15 @@ class Besoin:
 
 
 class Exigence:
-    def __init__(self, idex, intitule, critere, besoin=None, espece=0, niveau=None, exigence_mere=0):
+
+    def __init__(self, idex, intitule, critere, besoin=None, espece = 0,niveau=None, exigence_mere = 0):
         self.idex = idex
         self.exigence_mere = exigence_mere
         self.critere = critere
         self.espece = espece
-        # Pour une exigence fonctionnelle vaut 1 sinon vaut 0
+        #Pour une exigence fonctionnelle vaut 1 sinon vaut 0
         self.besoin = besoin
-        # Le besoin dont découle l'exigence
+        #Le besoin dont découle l'exigence
         self.intitule = intitule
         self.niveau = niveau
 
@@ -116,3 +103,22 @@ class Nomenclature():
                 a = row[0].split(";", 4)
                 id_separateur = a[3].index(':')
                 self.liste_nomenclature.append([int(a[0]), int(a[1]), a[2], a[3][(id_separateur + 2):]])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -141,20 +141,6 @@ def Renseigner_Exigence():
 def Renseigner_Besoin():
     import tkinter as tk
     #mise à jour du menu( permettre ajout exigence)
-    menubar.delete(0,1)
-    menu1=tk.Menu(menubar,tearoff=0)
-    menu1.add_command(label="Renseigner Besoin", command=Renseigner_Besoin)
-    menu1.add_command(label="Renseigner Exigence", command=Renseigner_Exigence)
-    menu1.add_command(label="Renseigner Piece", command=Renseigner_Piece)
-    menu1.add_command(label="Modifier Exigence", command=Modifier_Exigence)
-    menu1.add_command(label="Modifier Besoin", command=Modifier_Besoin)
-    menu1.add_command(label="Modifier Piece", command=Modifier_Piece)
-    menu1.add_command(label='Supprimer Exigence', command=Del_Exigence)
-    menu1.add_command(label='Supprimer Besoin', command=Del_Besoin)
-    menu1.add_command(label='Supprimer Pièce', command=Del_Piece)
-    menu1.add_separator()
-    menu1.add_command(label="Quitter", command=fenetre.destroy)
-    menubar.insert_cascade(0,label='Gérer', menu=menu1)
 
     # récupération du type de besoin
     fen = tk.Toplevel(fenetre)
@@ -163,6 +149,7 @@ def Renseigner_Besoin():
         MgrBesoins.create(intitule1.get(), int(value.get()))
         #        print(intitule1.get())
         #        print(value.get())
+        tkupdate()
         fen.destroy()
 
     def Valider():
@@ -176,9 +163,9 @@ def Renseigner_Besoin():
         entree0.grid(row=0, column=1)
         bouton4.grid(row=3, column=1)
 
-    bouton1 = tk.Radiobutton(fen, text="Besoin Primaire", variable=value, value=1)
-    bouton2 = tk.Radiobutton(fen, text="Besoin Secondaire", variable=value, value=0)
-    bouton3 = tk.Button(fen, text="Valider", command=Valider)
+    bouton1 = tk.Radiobutton(fenetre, text="Besoin Primaire", variable=value, value=1)
+    bouton2 = tk.Radiobutton(fenetre, text="Besoin Secondaire", variable=value, value=0)
+    bouton3 = tk.Button(fenetre, text="Valider", command=Valider)
     bouton1.pack()
     bouton2.pack()
     bouton3.pack()
@@ -455,16 +442,36 @@ def RenseignerGantt():
 
 import tkinter as tk
 
+def tkupdate():
+    if len(MgrBesoins.read()) > 0:
+        menubar.delete(0, 1)
+        menu1 = tk.Menu(menubar, tearoff=0)
+        menu1.add_command(label="Renseigner Besoin", command=Renseigner_Besoin)
+        menu1.add_command(label="Renseigner Exigence", command=Renseigner_Exigence)
+        menu1.add_command(label="Renseigner Piece", command=Renseigner_Piece)
+        menu1.add_command(label="Modifier Exigence", command=Modifier_Exigence)
+        menu1.add_command(label="Modifier Besoin", command=Modifier_Besoin)
+        menu1.add_command(label="Modifier Piece", command=Modifier_Piece)
+        menu1.add_command(label='Supprimer Exigence', command=Del_Exigence)
+        menu1.add_command(label='Supprimer Besoin', command=Del_Besoin)
+        menu1.add_command(label='Supprimer Pièce', command=Del_Piece)
+        menu1.add_separator()
+        menu1.add_command(label="Quitter", command=fenetre.destroy)
+        menubar.insert_cascade(0, label='Gérer', menu=menu1)
+
+def Fenetre_acceuil():
+    fenetre.configure(background='#2c3e50')
+    fenetre.title("IsHelper")
+    logo = tk.PhotoImage(file="ish.gif")
+    pic = tk.Label(fenetre, image=logo, bg='#2c3e50')
+    pic.pack()
+    # message d'accueil
+    hometxt = "La solution d'aide à l'ingénierie système"
+    text = tk.Label(fenetre, text=hometxt, bg='#2c3e50', fg='#ecf0f1', font=('Helvetica', 18))
+    text.pack()
+
 fenetre = tk.Tk()
-fenetre.configure(background='#2c3e50')
-fenetre.title("IsHelper")
-logo = tk.PhotoImage(file="ish.gif")
-pic = tk.Label(fenetre, image=logo, bg='#2c3e50')
-pic.pack()
-# message d'accueil
-hometxt = "La solution d'aide à l'ingénierie système"
-text = tk.Label(fenetre, text=hometxt, bg='#2c3e50', fg='#ecf0f1', font=('Helvetica', 18))
-text.pack()
+Fenetre_acceuil()
 
 menubar = tk.Menu(fenetre)
 
@@ -533,6 +540,10 @@ menu4.add_command(label="A propos", command=Renseigner_Aide)
 menubar.add_cascade(label="Aide", menu=menu4)
 
 fenetre.config(menu=menubar)
+
+#test si la bdd ouverte permet l'ajout d'exigences
+tkupdate()
+
 fenetre.mainloop()
 
 
