@@ -44,11 +44,6 @@ text.grid()
 
 menubar = tk.Menu(fenetre)
 
-
-# Pièce
-nom_piece = tk.StringVar()
-couleur = tk.StringVar()
-intitule_piece = tk.StringVar()
 # Projet
 nom_projet = tk.StringVar()
 liste_projet = list()

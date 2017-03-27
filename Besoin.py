@@ -3,8 +3,6 @@ from modeles import *
 import sqlite3 as sql
 import tkinter as tk
 
-
-
 class besoin(tk.Frame):
     def __init__(self, fenetre, MgrBesoins):
         super().__init__(fenetre)
