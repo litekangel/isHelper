@@ -27,3 +27,34 @@ class piece(tk.Frame):
         txt2.grid()
         entree2.grid()
         bouton1.grid()
+
+    def Del_Piece(self):
+        def Valider():
+            self.MgrPieces.delete(self.nom_piece)
+            self.destroy()
+
+        for i in self.MgrPieces.read():
+            texte = str(i.nom)
+            tk.Radiobutton(self, text=texte, variable=self.nom_piece, value=i.nom).pack()
+        tk.Button(self, text="Valider", command=Valider).pack()
+
+    def Modifier_Piece(self):
+        def Update():
+            # Mise à jour des variables
+            self.MgrPieces.read(int(self.nom_piece.get())).nom = self.intitule_piece.get()
+            self.MgrPieces.read(int(self.nom_piece.get())).couleur = self.couleur.get()
+            self.MgrPieces.update(self.MgrPieces.read(int(self.nom_piece.get())))
+            self.destroy()
+
+        def Valider():
+            tk.Label(self, text='Nom de la pièce :').grid()
+            tk.Entry(self, textvariable=self.intitule_piece, width=50).gid()
+            tk.Label(self, text='Couleur :').grid()
+            tk.Entry(self, textvariable=self.couleur, width=50).grid()
+            tk.Button(self, text="Valider", command=Update).grid()
+
+        tk.Label(self, text="Identifiant de la pièce à modifier: ").grid()
+        for i in self.MgrPieces.read():
+            texte = str(i.nom)
+            tk.Radiobutton(self, text=texte, variable=self.nom_piece, value=i.id_piece).pack()
+        tk.Button(self, text="Valider", command=Valider).pack()
