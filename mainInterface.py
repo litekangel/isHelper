@@ -14,6 +14,10 @@ MgrPieces = PieceMgr(db)
 
 fenetre = tk.Tk()
 
+#définition des différents frame
+frame_besoin=besoin(fenetre, MgrBesoins)
+frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
+frame_piece = piece(fenetre, MgrPieces)
 
 def Update_menu():
     menubar.delete(0, 1)
@@ -32,8 +36,9 @@ def Update_menu():
     menubar.insert_cascade(0, label='Gérer', menu=menu1)
 
 def Manage_besoin(x):
-    frame_besoin = besoin(fenetre, MgrBesoins)
+    frame_besoin.destroy()
     global frame_besoin
+    frame_besoin = besoin(fenetre, MgrBesoins)
     frame_besoin.grid()
     #x est une variable locale qui permet de gérer l'action à réaliser
     if x == 1:
@@ -45,8 +50,9 @@ def Manage_besoin(x):
         frame_besoin.Modifier_Besoin()
 
 def Manage_exigence(x):
-    frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
+    frame_exigence.destroy()
     global frame_exigence
+    frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
     frame_exigence.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
     if x == 1:
@@ -57,8 +63,9 @@ def Manage_exigence(x):
         frame_exigence.Modifier_Exigence()
 
 def Manage_piece():
-    frame_piece = piece(fenetre, MgrPieces)
+    frame_piece.destroy()
     global frame_piece
+    frame_piece = piece(fenetre, MgrPieces)
     frame_piece.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
     if x == 1:
