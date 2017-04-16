@@ -10,12 +10,13 @@ class besoin(tk.Frame):
         self.value = tk.StringVar()
         self.MgrBesoins=MgrBesoins
         self.nom_besoin = tk.StringVar()
+        self.origine = tk.StringVar()
 
     def Renseigner_Besoin(self):
         import tkinter as tk
 
         def CreerBesoin():
-            self.MgrBesoins.create(self.intitule1.get(), int(self.value.get()))
+            self.MgrBesoins.create(self.intitule1.get(), int(self.value.get()), origine=self.origine.get())
             self.destroy()
 
         def Valider():
@@ -26,7 +27,9 @@ class besoin(tk.Frame):
             bouton4 = tk.Button(self, text="Valider", command=CreerBesoin)
             txt1.grid(row=4)
             entree0.grid(row=4, column=1)
-            bouton4.grid(row=5, column=0)
+            tk.Label(self, text='Origine du besoin :').grid(row=5)
+            tk.Entry(self, textvariable=self.origine, width=100).grid(row=5, column=1)
+            bouton4.grid(row=6, column=0)
 
         bouton1 = tk.Radiobutton(self, text="Besoin Primaire", variable=self.value, value=1)
         bouton2 = tk.Radiobutton(self, text="Besoin Secondaire", variable=self.value, value=0)
@@ -49,6 +52,7 @@ class besoin(tk.Frame):
         def Update():
             self.MgrBesoins.read(int(self.nom_besoin.get())).intitule = self.intitule1.get()
             self.MgrBesoins.read(int(self.nom_besoin.get())).primaire = int(self.value.get())
+            self.MgrBesoins.read(int(self.nom_besoin.get())).origine = self.origine.get()
             self.MgrBesoins.update(self.MgrBesoins.read(int(self.nom_besoin.get())))
             self.destroy()
 
@@ -58,6 +62,8 @@ class besoin(tk.Frame):
             entree0 = tk.Entry(self, textvariable=self.intitule1, width=100)
             txt1.grid()
             entree0.grid(row= 2+len(self.MgrBesoins.read()), column=1)
+            tk.Label(self, text='Origine du besoin :').grid()
+            tk.Entry(self, textvariable=self.origine, width=100).grid(row=4+len(self.MgrBesoins.read()), column=1)
             tk.Radiobutton(self, text="Besoin Primaire", variable=self.value, value=1).grid()
             tk.Radiobutton(self, text="Besoin Secondaire", variable=self.value, value=0).grid()
             tk.Button(self, text="Valider", command=Update).grid()

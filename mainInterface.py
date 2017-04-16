@@ -1,9 +1,14 @@
 import tkinter as tk
-from Besoin import *
-from Exigence import *
-from Piece import *
+from Frames.Besoin import besoin
+from Frames.Exigence import exigence
+from Frames.Piece import piece
+from Modules.lectureBesoin import read_besoin
+from Modules.lectureNomenclature import read_nomenclature
+from Modules.lectureExigence import read_exigence
+from Modules.saveProject import save_project
 import sqlite3 as sql
 import tkinter as tk
+from tkinter import filedialog
 from classes import *
 from modeles import *
 
@@ -11,11 +16,12 @@ db = sql.connect('bdd.sql')
 MgrExigences = ExigencesMgr(db)
 MgrBesoins = BesoinsMgr(db)
 MgrPieces = PieceMgr(db)
+#MgrNomenclature = NomenclatureMgr(db)
 
 fenetre = tk.Tk()
 
-#définition des différents frame
-frame_besoin=besoin(fenetre, MgrBesoins)
+#définition des différentes frame
+frame_besoin= besoin(fenetre, MgrBesoins)
 frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
 frame_piece = piece(fenetre, MgrPieces)
 
@@ -75,6 +81,26 @@ def Manage_piece():
     elif x == 3:
         frame_piece.Modifier_Piece()
 
+def Import_besoin():
+    fenetre.filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=[("csv files", "*.csv")])
+    read_besoin(fenetre.filename, MgrBesoins)
+
+def Import_exigence():
+    fenetre.filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=[("csv files", "*.csv")])
+    read_exigence(fenetre.filename, MgrExigences)
+
+#def Import_piece():
+#    fenetre.filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=[("csv files", "*.csv")])
+#    read_piece(fenetre.filename, MgrPieces)
+
+def Import_nomenclture():
+    fenetre.filename = filedialog.askopenfilename(initialdir="/", title="Select file", filetypes=[("csv files", "*.csv")])
+    read_nomenclature(fenetre.filename, MgrNomenclature)
+
+def Export_project():
+    fenetre.filename = filedialog.asksaveasfilename(initialdir="/", title="Select file", filetypes=[("csv files", "*.csv")])
+    save_project(fenetre.filename, MgrBesoins, MgrExigences)
+
 # Définition du fond d'écran de l'application
 fenetre.configure(background='#2c3e50')
 fenetre.title("IsHelper")
@@ -87,27 +113,6 @@ text = tk.Label(fenetre, text=hometxt, bg='#2c3e50', fg='#ecf0f1', font=('Helvet
 text.grid()
 
 menubar = tk.Menu(fenetre)
-
-# Projet
-nom_projet = tk.StringVar()
-liste_projet = list()
-# Equipe humaine
-nom_personne = tk.StringVar()
-liste_personne = list()
-# Tache
-nom_tache = tk.StringVar()
-tache = tk.StringVar()
-temps = tk.StringVar()
-nom = tk.StringVar()
-pourcentage = tk.StringVar()
-liste_tache = list()
-# Affichage (définition des dates)
-projet = tk.StringVar()
-today = tk.StringVar()
-start = tk.StringVar()
-end = tk.StringVar()
-nom_diagramme = tk.StringVar()
-
 
 menu1 = tk.Menu(menubar, tearoff=0)
 # utilisation des fonctions lambda pour pouvoir passer des paramètres dans la fct
@@ -125,10 +130,18 @@ menu1.add_command(label="Quitter", command=fenetre.destroy)
 menubar.add_cascade(label="Gérer", menu=menu1)
 
 menu2 = tk.Menu(menubar, tearoff=0)
-menu2.add_command(label="Couper")
-menu2.add_command(label="Copier")
-menu2.add_command(label="Coller")
-menubar.add_cascade(label="Editer", menu=menu2)
+menu2.add_command(label='Importer besoins', command=Import_besoin)
+menu2.add_command(label='Importer exigences', command=Import_exigence)
+menu2.add_command(label='Importer nomenclature', command=Import_nomenclture)
+#menu2.add_command(label='Importer pièces', command=Import_piece())
+menu2.add_command(label='Exporter projet', command=Export_project)
+menubar.add_cascade(label="Données", menu=menu2)
+
+menu3 = tk.Menu(menubar, tearoff=0)
+menu3.add_command(label="Couper")
+menu3.add_command(label="Copier")
+menu3.add_command(label="Coller")
+menubar.add_cascade(label="Editer", menu=menu3)
 
 fenetre.config(menu=menubar)
 

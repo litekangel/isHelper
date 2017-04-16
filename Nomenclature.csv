@@ -1,0 +1,101 @@
+ID;QuantitÇ;Couleur;CatÇgorie;Nom de la piäce
+6024581;4;Noir;Systäme : Briques, cercles spÇciaux et angles;Cable 250 Mm
+6024583;2;Noir;Systäme : Briques, cercles spÇciaux et angles;Cable 350 Mm
+6024585;1;Noir;Systäme : Briques, cercles spÇciaux et angles;Cable 500 Mm
+4112282;4;Noir;Technique : Poutres;Poutre Angulaire 4x6
+4142822;2;Noir;Technique : Poutres;Poutre 3M
+4552347;4;Noir;Technique : Poutres;Potre-T 3x3 avec trou ù4.8
+4541326;1;Noir;Technique : Poutres avec formes;Panneau gauche 5x11
+4543490;1;Noir;Technique : Poutres avec formes;Panneau droit 5x11
+4566249;1;Noir;Technique : Poutres avec formes;Panneau droit 3x5
+4566251;1;Noir;Technique : Poutres avec formes;Panneau gauche 3x5
+4121667;8;Noir;Technique : Poutres, Special;Doucle croix
+4140430;4;Noir;Technique : Poutres, Special;Croix 2x1
+6006140;4;Noir;Technique : Poutres, Special;Poutre 1x2 avec croix et trou
+370526;4;Noir;Technique : Connecteurs;Tige croix 4M
+370626;4;Noir;Technique : Connecteurs;Tige croix 6M
+370726;2;Noir;Technique : Connecteurs;Tige croix 8M
+370826;2;Noir;Technique : Connecteurs;Tige croix 12M
+373726;2;Noir;Technique : Connecteurs;Tige croix 10M
+4107085;4;Noir;Technique : Connecteurs;Element d'angle, 0 Degrees [1]
+4107767;2;Noir;Technique : Connecteurs;Element d'angle, 90 Degrees [6]
+4107783;4;Noir;Technique : Connecteurs;Element d'angle, 180 Degrees [2]
+4121715;60;Noir;Technique : Connecteurs;Connecteur avec friction
+4198367;4;Noir;Technique : Connecteurs;Ammortisseur 2M
+4652236;2;Noir;Technique: Elements fonctionnels;Upper Part For Turntable Z28
+4177431;2;Noir;Technique: Elements fonctionnels, Engrenages et Supports;Double roue conique Z12 1M
+4248204;4;Noir;Technique: Elements fonctionnels, Engrenages et Supports;Roue angulaire
+4255563;2;Noir;Technique: Elements fonctionnels, Engrenages et Supports;Double roue conique Z36
+6093977;2;Noir;Technique: Elements fonctionnels, Engrenages et Supports;Double roue conique Z20 1M
+4142236;2;Noir;Technique: Demi-Poutres;Levier 1x4 sans encoche
+4162857;4;Noir;Technique: Demi-Poutres, Special;Fourchette croix 2x2
+4563044;2;Noir;Technique: Demi-Poutres, Special;Bielle 2x1x3
+6035364;2;Noir;Technique: Pneus et Jantes;Pneu ù56 X 28
+4582792;4;Noir;Technique: Pneus et Jantes, Special;Pignon ù40,7
+6014648;54;Noir;Technique: Pneus et Jantes, Special;Track Element, 5X1,5
+6028041;4;Noir;Technique: Pneus et Jantes, Special;Pneu fin
+4514554;6;Jaune;Technique : Connecteurs;Connecteur 3M
+4666579;8;Jaune;Technique : Connecteurs;Connecteur / Tige croix
+4565452;2;Jaune;Technique: Elements fonctionnels, Engrenages et Supports;Roue Conique Z12
+4509376;4;Bleu;Technique : Poutres;Poutre 3M
+4206482;20;Bleu;Technique : Connecteurs;Conn.Bush W.Fric./Crossale
+4514553;30;Bleu;Technique : Connecteurs;Connector Peg W. Friction 3M
+4141270;6;Rouge;Technique : Poutres;Technique Ang. Beam 4X2 90 Deg
+4153718;4;Rouge;Technique : Poutres;Technique 3M Beam
+6008527;2;Rouge;Technique : Poutres, Special;Hto  V Beam 90 Degr.
+4140806;22;Rouge;Technique : Connecteurs;2M Fric. Snap W/Cross Hole
+4142865;10;Rouge;Technique : Connecteurs;2M Tige croix W. Groove
+4513174;6;Rouge;Technique : Connecteurs;Tige croix, Extension, 2M
+4153707;4;Jaune Clair;Technique : Poutres;Poutre 3M
+4239601;10;Jaune Clair;Technique : Connecteurs;Demi palier
+6007973;4;Vert FoncÇ;Technique : Poutres;Poutre 3M
+4210857;8;Gris FoncÇ;Technique : Poutres, Special;Poutre croix 3M
+4610380;1;Gris FoncÇ;Technique : Poutres, Special;Rotule
+4499858;2;Gris FoncÇ;Technique : Connecteurs;Tige croix 8M avec Çpaulement
+6083620;2;Gris FoncÇ;Technique : Connecteurs;Tige croix 4M avec Çpaulement
+4514558;4;Gris FoncÇ;Technique: Elements fonctionnels, Engrenages et Supports;Roue dentÇe Z24
+6012451;4;Gris FoncÇ;Technique: Elements fonctionnels, Engrenages et Supports;Roue dentÇe T=8, M=1
+4587275;4;Gris FoncÇ;Technique: Pneus et Jantes, Special;Pneu fin ù24
+6008472;2;Gris;Mindstorms: Electronique;Capteur tactile
+6008577;1;Gris;Mindstorms: Electronique;Moteur moyen
+6008916;1;Gris;Mindstorms: Electronique;Capteur gyroscopique
+6008919;1;Gris;Mindstorms: Electronique;Capteur couleur
+6063629;1;Gris;Mindstorms: Electronique;Capteur ultrason
+4156151;4;Gris;Technique : Poutres;Poutre 11M
+4211624;4;Gris;Technique : Poutres;Poutre angulaire 3x7
+4211651;4;Gris;Technique : Poutres;Poutre 5M
+4211713;2;Gris;Technique : Poutres;Poutre angulaire 3x5 90¯
+4211866;6;Gris;Technique : Poutres;Poutre 9M
+4495930;4;Gris;Technique : Poutres;Poutre 7M
+4522934;6;Gris;Technique : Poutres;Poutre 13M
+4611705;4;Gris;Technique : Poutres;Poutre 11M
+6102449;6;Gris;Technique : Poutres;Poutre 9M
+4211775;8;Gris;Technique : Poutres, Special;Croix 90¯
+4225033;6;Gris;Technique : Poutres, Special;Poutre 3M avec 4 connecteurs
+4296059;4;Gris;Technique : Poutres, Special;Poutre angulaire 90¯ avec 4 connecteurs
+4538007;6;Gris;Technique : Poutres, Special;Croix 3x2
+4539880;3;Gris;Technique : Poutres, Special;Poutre rectangulaire 5X7ù 4.85
+4540797;1;Gris;Technique : Poutres, Special;Poutre rectangulaire 5X11ù4.85
+4560175;4;Gris;Technique : Poutres, Special;Double connecteur 3Mù4.9
+4211622;10;Gris;Technique : Connecteurs;Connecteur pour tige croix
+4211639;6;Gris;Technique : Connecteurs;Tige croix 5M
+4211805;5;Gris;Technique : Connecteurs;Tige croix 7M
+4211807;10;Gris;Technique : Connecteurs;Connecteur
+4211815;14;Gris;Technique : Connecteurs;Tige croix 3M
+4502595;2;Gris;Technique : Connecteurs;Tige croix trois branches avec trou en croix
+4526985;4;Gris;Technique : Connecteurs;Tube avec doubleù4.85
+4535768;2;Gris;Technique : Connecteurs;Tige croix 9M
+4652235;2;Gris;Technique: Elements fonctionnels;Lower Part For Turntable Z28
+4211510;2;Gris;Technique: Elements fonctionnels, Engrenages et Supports;Filetage
+4285634;2;Gris;Technique: Elements fonctionnels, Engrenages et Supports;Roue dentÇe 40T
+4640536;4;Gris;Technique: Elements fonctionnels, Engrenages et Supports;Roue dentÇe Z16
+6009019;4;Gris;Technique: Demi-Poutres;Triangle
+4634091;2;Gris;Technique: Pneus et Jantes;Jante 43,2X26 avec 6 trous ù4.8
+6079570;1;Non SpÇcifiÇ;Systäme: Electronique;Steel Ball
+6031821;2;Jaune Sable;Technique : Connecteurs;Crossaxle 3M With Knob
+6009996;1;Blanc;Systäme: Electronique;Brique märe
+4495412;4;Blanc;Technique : Poutres;Double poutre angulaire 3X7 45¯
+4509912;6;Blanc;Technique : Poutres;Poutre angulaire 4X4
+4542578;6;Blanc;Technique : Poutres;Poutre 15M
+4585040;4;Blanc;Technique : Poutres;Poutre angulaire 3X5 90 Deg.
+4173941;4;Blanc;Technique: Elements de DÇcoration;Bion. Eye

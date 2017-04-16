@@ -1,0 +1,68 @@
+﻿E.F 1;Le robot doit récupérer la pièce en entrée;B.SI 1
+E.F 1.1;Le robot doit pouvoir soulever une pièce de 60g;B.Ser 1.1
+E.F 1.2;Le robot doit pouvoir lacher la pièce avec une précision d'un tenon;B.Ser 1.2
+E.F 1.3;Le robot doit pouvoir saisir une pièce de dimension 4x4 tenons;B.Ser
+E.F 1.3;Le robot doit pouvoir tourner de 180° en moins de 5 secondes;B.Ser 1.3
+E.F 2;Le robot doit pouvoir détecter les couleurs (code RGB);B.Ser 2
+E.F 2.1;Le robot doit détecter une pièce bleue;B.Ser 2.1
+E.F 2.2;Le robot doit passer en mode télé-opéré dès le début de la mission;B.Ser 2.2
+E.F 3;Le robot doit pouvoir détecter les dimensions de la pièce saisie;B.Ser 3
+E.F 3.1;Le robot doit différencier les pièces de dimension 4x4x2 des autres;B.Ser 3.1
+E.F 3.2;Le robot doit passer en mode télé-opéré dès le début de la mission;B.Ser 3.2
+;;
+Identifiant;Exigences d'efficacité;Origine
+E.Eff 1;Chaque tri doit être réalisé en 30s maximum;B.Eff 1
+E.Eff 2;La batterie doit pouvoir alimenter le robot pensant 6 heures minimum;B.Eff 2
+E.Eff 3;La capacité de stockage du programme doit être supérieure à 60ko;B.Eff 3
+E.Eff 4;Les commandes du robot doivent être intuitives pour l'opérateur;B.Eff 4
+;;
+Identifiant;Exigences d'intéractions et connexions;Origine
+E.IC 1;La batterie doit être facilement accessible;B.IC 1
+E.IC 2;Les deux programmes doivent pouvoir être intervertis en moins d'une minute;B.IC 3
+E.IC 3;La transmission des données doit se faire en bluetooth;B.IC 4
+E.IC 3.1;L'opérateur doit se trouver à moins de 10m du robot;B.IC 4
+E.IC 4;Les deux programmes doivent être prêts à être utilisés;B.IC 5
+;;
+Identifiant;Facteurs humains;Origine
+E.FH 1;L'opérateur doit apprendre rapidement à contrôler le robot;B.FH 1
+;;
+Identifiant;Sureté de fonctionnement;Origine
+E.SF 1;Le robot doit arrêter son mouvement en cas de perte d'équilibre;B.SF 1
+E.SF 2;La projection du robot doit rester dans l'aire de travail;B.SF 2
+;;
+Identifiant;Environnement opérationnel imposé;Origine
+E.Env 1;La zone de travail a pour dimensions 32x32 tenons;B.Env 1
+E.Env 1.1;La projection du robot doit rester dans l'aire de travail;B.Env 1
+E.Env 2;Le robot doit fonctionner dans les conditions Environnementales fixées;B.Env 2
+E.Env 2.1;La température ambiante varie entre 15°C et 32°C;B.Env 2
+E.Env 2.2;La pression atmosphérique est comprise entre 1000mb et 1030mb;B.Env 2
+E.Env 2.3;L'hygrométrie est comprise entre 40% et 75%;B.Env 2
+E.Env 2.4;La luminosité est comprise entre 100 et 300 lumen;B.Env 2
+E.Env 3;Le robot doit s'adapter à l'Environnement mécanique;B.Env 3
+E.Env 3.1;Le robot doit absorber les vibrations sans être deséquilibré;B.Env 3
+E.Env 3.2;Le robot doit compenser la gravité lorsqu'il transporte la pièce;B.Env 3
+;;
+Identifiant;Transport et stockage;Origine
+E.TS1;Le robot doit être démontable et transportable dans une boite;B.TS 1
+;;
+Identifiant;Contraintes de réalisation;Origine
+E.Real 1;Le robot doit utiliser l'énergie électrique fournie par la batterie;B.Real 1
+E.Real 2;Le robot doit avoir pour dimensions maximales 26x29 tenons;B.Real 2
+E.Real 3;Le robot doit avoir un bouton pour réaliser la mission de tri couleur;B.Real 3
+E.Real 4;Le robot doit avoir un bouton pour réaliser la mission de tri dimensionnel;B.Real 4
+;;
+Identifiant;Contraintes de mise en service;Origine
+E.MeS 1;Le robot doit être déposé par l'opérateur sur l'aire de travail;B.MeS 1
+;;
+Identifiant;Contrainte de retrait de service;Origine
+E.RdS 1;Le robot doit être retiré par l'opérateur de l'aire de travail;B.RdS 1
+;;
+Identifiant;Contraintes de Production;Origine
+E.Prod 1;Le robot doit être constitué de pièces LEGO venant des deux kit Mindstorm uniquement;B.Prod 1
+E.Prod 2;Les instructions doivent être programmées avec le logiciel LEGO EV3;B.Prod 2
+;;
+Identifiant;Contrainte de réglementation;Origine
+E.Reg 1;Tous les rendus doivent respecter le règlement du concours ROBAFIS;B.Reg 1
+;;
+Identifiant;Contrainte de coût et délais;Origine
+E.CD 1;Le robot doit être livré dans les délais;B.CD 1

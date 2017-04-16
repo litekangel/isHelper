@@ -1,0 +1,40 @@
+B.Ser 1;Gérer le flux des pièces;Implicite
+B.Ser 1.1;Acheminer la pièces dans la zone de travail;Implicite
+B.Ser 1.2;Évacuer la pièce dans la zone correspondante;Cahier des charges
+B.Ser 1.3;Transférer la pièce d'une zone à l'autre dans un temps limité;Cahier des charges
+B.Ser 1.4;Commander de manière télé-opéré;Cahier des charges
+B.Ser 1.5;Rester en équilibre l'ordre du déplacement;Implicite
+B.Ser 2;Reconnaître la couleur de la pièce;Implicite
+B.Ser 2.1;Apprécier la longueur d'onde de la pièce;Implicite
+B.Ser 2.2;Commander de manière télé-opéré;Cahier des charges
+B.Ser 3;Reconnaître la forme de la pièce;Implicite
+B.Ser 3.1;Détecter les dimensions de la pièce;Implicite
+B.Ser 3.2;Commander de manière télé-opéré;Cahier des charges
+B.Ser 4;Les éléments doivent être alimentés par des piles;Implicite
+B.Eff 1;Réaliser un tri en moins de 30 secondes;Cahier des charges
+B.Eff 2;Pouvoir être sur batterie pendant 6 heures sans recharge;Implicite
+B.Eff 3;Stocker l'intégralité du programme;Implicite
+B.Eff 4;Pouvoir être facilement maniable par l'opérateur;Opérateur
+B.IC 1;Les batteries doivent être accessibles facilement;Maintenance
+B.IC 2;Saisir la pièce;Implicite
+B.IC 3;Permettre à l'opérateur de sélectionner facilement le mode de fonctionnement;Opérateur
+B.IC 4;Envoyer et recevoir des informations à l'opérateur;Opérateur
+B.IC 5;Permettre à l'opérateur de télécharger un programme facilement ;Maintenance
+B.FH 1;Apprentissage du fonctionnement de l'interface opérateur;Opérateur
+B.SF 1;Arrêter le mouvement en cas de perte d'équilibre;Opérateur
+B.SF 2;Rester dans la zone de travail;Cahier des charges
+B.SI 1;Assurer la transmission des instructions entre l'opérateur et la brique intelligente;Implicite
+B.Env 1;S'adapter à l'Environnement imposé : dimensions de la zone de travail…;Implicite
+B.Env 2;S'adapter aux conditions Environnementales : température, pression, lumière;Implicite
+B.Env 3;S'adapter aux conditions mécaniques : vibrations, gravité…;Implicite
+B.TS 1;Etre transportable et stockable dans une boite de dimension raisonnable;Equipe
+C.Real 1;Utiliser l'énergie électrique fournie (piles ou batterie);Implicite
+C.Real 2;Respecter les dimensions maximales;Cahier des charges
+C.Real 3;Avoir un bouton pour démarrer le tri de couleur;Opérateur
+C.Real 4;Avoir un bouton pour démarrer le tri dimensionnel;Opérateur
+C.MeS 1;Etre déposé par l'opérateur sur la zone de travail;Opérateur
+C.RdS 1;Etre retiré de la zone de travail par l'opérateur;Opérateur
+C.Prod 1;Utiliser des briques LEGO fournies dans le kit Mindstorms uniquement;Cahier des charges
+C.Prod 2;Utliser le logiciel LEGO EV3 pour programmer la brique intelligente;Opérateur
+C.Reg 1;Respecter le règlement du concours ROBAFIS;Implicite
+C.CD 1;Respecter les délais de Production;M. ETIENNE
