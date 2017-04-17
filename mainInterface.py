@@ -53,20 +53,22 @@ def Manage_exigence(x):
     # x est une variable locale qui permet de gérer l'action à réaliser
     # avant d'effectuer l'action on test si elle est réalisable
     if x == 1:
-        if len(MgrBesoins.read()) < 1:
-            showwarning("Ajout d'exigence", "Aucun besoin n'est renseigné")
+        if len(MgrBesoins.read()) < 10:
+            showerror("Ajout d'exigence", "Aucun besoin n'est renseigné")
             return
         frame_exigence.Renseigner_Exigence()
     elif x == 2:
         if len(MgrExigences.read()) < 1:
-            showwarning("Suppression d'exigence", "Aucune exigence n'est renseignée")
+            showerror("Suppression d'exigence", "Aucune exigence n'est renseignée")
             return
         frame_exigence.Del_Exigence()
     elif x == 3:
         if len(MgrExigences.read()) < 1:
-            showwarning("Modification d'exigence", "Aucune exigence n'est renseignée")
+            showerror("Modification d'exigence", "Aucune exigence n'est renseignée")
             return
         frame_exigence.Modifier_Exigence()
+    elif x == 4:
+        frame_exigence.update_origin(exigence_idex)
 
 
 def Manage_piece(x):
@@ -112,6 +114,16 @@ def Export_project():
                                                     filetypes=[("csv files", "*.csv")])
     save_project(fenetre.filename, MgrBesoins, MgrExigences)
 
+def Verify_exigence():
+    for exigence in MgrExigences.read():
+        if exigence.origine == 1:
+            if askquestion('Origine des exigences', """l'exigence "{}" n'est pas liée à un besoin ou à une autre exigence, voulez vous la renseigner ?""".format(exigence.intitule)):
+                global exigence_idex
+                exigence_idex = exigence.idex
+                Manage_exigence(4)
+
+
+
 
 # Définition du fond d'écran de l'application
 
@@ -152,13 +164,10 @@ menu2.add_command(label='Importer nomenclature', command=Import_nomenclature)
 menu2.add_command(label='Exporter projet', command=Export_project)
 menubar.add_cascade(label="Données", menu=menu2)
 
-# Intérêt mdrrrrrrrrrrr
 menu3 = tk.Menu(menubar, tearoff=0)
 menu3.configure(background='#ecf0f1', foreground="#2c3e50")
-menu3.add_command(label="Couper")
-menu3.add_command(label="Copier")
-menu3.add_command(label="Coller")
-menubar.add_cascade(label="Editer", menu=menu3)
+menu3.add_command(label="Vérifier architecture fonctionnelle", command=Verify_exigence)
+menubar.add_cascade(label="Tester", menu=menu3)
 fenetre.config(menu=menubar)
 
 # test si la bdd ouverte permet l'ajout d'exigences

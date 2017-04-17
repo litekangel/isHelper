@@ -1,9 +1,9 @@
 def save_project(path, MgrBesoins, MgrExigences):
     file = open(path+".csv", "w")
     for besoin in MgrBesoins.read():
-        ligne=besoin.primaire+';'+besoin.intitule+';'+besoin.origine
+        ligne=str(besoin.primaire)+';'+besoin.intitule+';'+str(besoin.origine)+'\n'
         file.write(ligne)
     for exigence in MgrExigences.read():
-        ligne=exigence.espece+';'+exigence.intitule+';'+exigence.critere+';'+exigence.niveau+';'+exigence.origine+';'+exigence.exigence_mere
+        ligne=str(exigence.espece)+';'+str(exigence.intitule)+';'+str(exigence.critere)+';'+str(exigence.niveau)+';'+str(exigence.origine)+';'+str(exigence.exigence_mere)+'\n'
         file.write(ligne)
 

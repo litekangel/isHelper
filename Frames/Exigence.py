@@ -165,3 +165,48 @@ class exigence(tk.Frame):
             texte = str(i.intitule)
             tk.Radiobutton(self, text=texte, variable=self.nom_exigence, value=i.idex).grid()
         tk.Button(self, text="Valider", command=Valider).grid()
+
+    def update_origin(self, exigence_idex):
+        def Valider():
+            #self.MgrExigences.read(int(exigence_idex)).origine = self.origine.get()
+            #self.MgrExigences.update(self.MgrExigences.read(int(exigence_idex)))
+            self.destroy()
+
+        def origine_besoin(event):
+            # supression de la surcharge affichage
+            for elt in liste_bind:
+                elt.destroy()
+            liste_bind.clear()
+            # création du nouvel affichage
+            for i in self.MgrBesoins.read():
+                liste_bind.append(tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.id_besoin))
+            liste_bind.append(tk.Button(self, text="Valider", command=Valider))
+            bouton4.destroy()
+            for elt in liste_bind:
+                elt.grid(column=1)
+
+        def origine_exigence(event):
+            # supression de la surcharge affichage
+            for elt in liste_bind:
+                elt.destroy()
+            liste_bind.clear()
+            # création du nouvel affichage
+            for i in self.MgrExigences.read():
+                liste_bind.append(tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.idex))
+            liste_bind.append(tk.Button(self, text="Valider", command=Valider))
+            bouton4.destroy()
+            for elt in liste_bind:
+                elt.grid(column=1)
+
+        tk.Label(self, text="Raffinement de l'élément :").grid()
+        b = tk.Radiobutton(self, text="Besoin")
+        b.grid(row= 0, column=1)
+        e = tk.Radiobutton(self, text="Exigence")
+        e.grid(row=0, column=2)
+        # création liste contenant les objets (sous forme de radiobutton) liés à l'exigence
+        liste_bind = list()
+        b.bind('<1>', origine_besoin)
+        e.bind('<1>', origine_exigence)
+        # Bouton de sortie
+        bouton4 = tk.Button(self, text="Valider", command=Valider)
+        bouton4.grid(column=1)
