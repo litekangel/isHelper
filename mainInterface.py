@@ -1,4 +1,3 @@
-import sqlite3 as sql
 import tkinter as tk
 from tkinter import filedialog
 
@@ -11,7 +10,7 @@ from Modules.lectureNomenclature import read_nomenclature
 from Modules.saveProject import save_project
 from modeles import *
 
-db = sql.connect('bdd.sql')
+db = 'bdd.sql'
 MgrExigences = ExigencesMgr(db)
 MgrBesoins = BesoinsMgr(db)
 MgrPieces = PieceMgr(db)
