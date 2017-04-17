@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
+from tkinter.messagebox import *
 
 from Frames.Besoin import besoin
 from Frames.Exigence import exigence
@@ -26,23 +27,6 @@ frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
 frame_piece = piece(fenetre, MgrPieces)
 
 
-def Update_menu():
-    menubar.delete(0, 1)
-    menu1 = tk.Menu(menubar, tearoff=0)
-    menu1.add_command(label="Renseigner Besoin", command=lambda x=1: Manage_besoin(1))
-    menu1.add_command(label="Renseigner Exigence", command=lambda x=1: Manage_exigence(1))
-    menu1.add_command(label="Renseigner Pièce", command=lambda x=1: Manage_piece(1))
-    menu1.add_command(label='Supprimer un Besoin', command=lambda x=2: Manage_besoin(2))
-    menu1.add_command(label='Supprimer une Exigence', command=lambda x=2: Manage_exigence(2))
-    menu1.add_command(label='Supprimer une Pièce', command=lambda x=2: Manage_piece(2))
-    menu1.add_command(label='Modifier un Besoin', command=lambda x=3: Manage_besoin(3))
-    menu1.add_command(label='Modifier une Exigence', command=lambda x=3: Manage_exigence(3))
-    menu1.add_command(label='Modifier une Pièce', command=lambda x=3: Manage_piece(3))
-    menu1.add_separator()
-    menu1.add_command(label="Quitter", command=fenetre.destroy)
-    menubar.insert_cascade(0, label='Gérer', menu=menu1)
-
-
 def Manage_besoin(x):
     global frame_besoin
     frame_besoin.destroy()
@@ -53,7 +37,6 @@ def Manage_besoin(x):
     # x est une variable locale qui permet de gérer l'action à réaliser
     if x == 1:
         frame_besoin.Renseigner_Besoin()
-        Update_menu()
     elif x == 2:
         frame_besoin.Del_Besoin()
     elif x == 3:
@@ -68,11 +51,21 @@ def Manage_exigence(x):
     frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
     frame_exigence.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
+    # avant d'effectuer l'action on test si elle est réalisable
     if x == 1:
+        if len(MgrBesoins.read()) < 1:
+            showwarning("Ajout d'exigence", "Aucun besoin n'est renseigné")
+            return
         frame_exigence.Renseigner_Exigence()
     elif x == 2:
+        if len(MgrExigences.read()) < 1:
+            showwarning("Suppression d'exigence", "Aucune exigence n'est renseignée")
+            return
         frame_exigence.Del_Exigence()
     elif x == 3:
+        if len(MgrExigences.read()) < 1:
+            showwarning("Modification d'exigence", "Aucune exigence n'est renseignée")
+            return
         frame_exigence.Modifier_Exigence()
 
 
@@ -138,13 +131,13 @@ menu1 = tk.Menu(menubar, tearoff=0)
 menu1.configure(background='#ecf0f1', foreground="#2c3e50")
 # utilisation des fonctions lambda pour pouvoir passer des paramètres dans la fct
 menu1.add_command(label="Renseigner Besoin", command=lambda x=1: Manage_besoin(1))
-menu1.add_command(label="Renseigner Exigence", state='disabled', command=lambda x=1: Manage_exigence(1))
+menu1.add_command(label="Renseigner Exigence", command=lambda x=1: Manage_exigence(1))
 menu1.add_command(label="Renseigner Pièce", command=lambda x=1: Manage_piece(1))
 menu1.add_command(label='Supprimer un Besoin', command=lambda x=2: Manage_besoin(2))
-menu1.add_command(label='Supprimer une Exigence', state='disabled', command=lambda x=2: Manage_exigence(2))
+menu1.add_command(label='Supprimer une Exigence', command=lambda x=2: Manage_exigence(2))
 menu1.add_command(label='Supprimer une Pièce', command=lambda x=2: Manage_piece(2))
 menu1.add_command(label='Modifier un Besoin', command=lambda x=3: Manage_besoin(3))
-menu1.add_command(label='Modifier une Exigence', state='disabled', command=lambda x=3: Manage_exigence(3))
+menu1.add_command(label='Modifier une Exigence', command=lambda x=3: Manage_exigence(3))
 menu1.add_command(label='Modifier une Pièce', command=lambda x=3: Manage_piece(3))
 menu1.add_separator()
 menu1.add_command(label="Quitter", command=fenetre.destroy)
@@ -161,11 +154,11 @@ menubar.add_cascade(label="Données", menu=menu2)
 
 # Intérêt mdrrrrrrrrrrr
 menu3 = tk.Menu(menubar, tearoff=0)
+menu3.configure(background='#ecf0f1', foreground="#2c3e50")
 menu3.add_command(label="Couper")
 menu3.add_command(label="Copier")
 menu3.add_command(label="Coller")
 menubar.add_cascade(label="Editer", menu=menu3)
-menu3.configure(background='#ecf0f1', foreground="#2c3e50")
 fenetre.config(menu=menubar)
 
 # test si la bdd ouverte permet l'ajout d'exigences
