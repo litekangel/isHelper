@@ -18,9 +18,10 @@ class BesoinsMgr():
         self.db = db
         self.cursor = db.cursor()
 
-    def create(self, intitule, primaire=False):
+    def create(self, intitule, primaire=False, origine=False):
         cursor = self.db.cursor()
-        cursor.execute("""INSERT INTO besoins (intitule,primaire) VALUES(?,?)""", (intitule, primaire))
+        cursor.execute("""INSERT INTO besoins (intitule,primaire,origine) VALUES(?,?,?)""",
+                       (intitule, primaire, origine))
         id_besoin = cursor.lastrowid
         cursor.close()
         return Besoin(id_besoin, intitule, primaire)
