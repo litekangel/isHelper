@@ -13,7 +13,7 @@ class exigence(tk.Frame):
         self.mere = tk.StringVar()
         self.exigence_mere = tk.StringVar()
         self.nom_exigence = tk.StringVar()
-        self.origine = tk.StringVar()
+        self.origine = tk.StringVar(value='None')
         self.MgrBesoins=MgrBesoins
         self.MgrExigences=MgrExigences
 
@@ -25,16 +25,6 @@ class exigence(tk.Frame):
             self.destroy()
 
         def DemanderExigenceMere():
-            # si aucune des conditions est vérifiée : correspond au cas où on ne souhaite pas renseigner l'origine de l'exigence donc l'origine reste None
-            if self.origine.get() != '':
-                if int(self.origine.get()) == 1:
-                    for i in self.MgrBesoins.read():
-                        tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.id_besoin).grid(column=1)
-                elif int(self.origine.get()) == 0:
-                    for i in self.MgrBesoins.read():
-                        tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.idex).grid(column=1)
-            else:
-                self.origine = tk.StringVar(value='None')
             if int(self.mere.get()) == False:
                 for i in self.MgrExigences.read():
                     tk.Radiobutton(self, text=str(i.intitule), variable=self.exigence_mere, value=i.idex).grid()
@@ -45,7 +35,33 @@ class exigence(tk.Frame):
                                     exigence_mere=0)
                 self.destroy()
 
+
+
         def Valider():
+            def origine_besoin(event):
+                # supression de la surcharge affichage
+                for elt in liste_bind:
+                    elt.destroy()
+                liste_bind.clear()
+                # création du nouvel affichage
+                for i in self.MgrBesoins.read():
+                    liste_bind.append(tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.id_besoin))
+                liste_bind.append(tk.Button(self, text="Valider", command=DemanderExigenceMere))
+                bouton4.destroy()
+                for elt in liste_bind:
+                    elt.grid(column=1)
+            def origine_exigence(event):
+                # supression de la surcharge affichage
+                for elt in liste_bind:
+                    elt.destroy()
+                liste_bind.clear()
+                # création du nouvel affichage
+                for i in self.MgrExigences.read():
+                    liste_bind.append(tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.idex))
+                liste_bind.append(tk.Button(self, text="Valider", command=DemanderExigenceMere))
+                bouton4.destroy()
+                for elt in liste_bind:
+                    elt.grid(column=1)
             # récupération de l'intitulé de l'exigence
             txt1 = tk.Label(self, text='Intitulé :')
             entree0 = tk.Entry(self, textvariable=self.intitule, width=100)
@@ -70,9 +86,14 @@ class exigence(tk.Frame):
             bouton4_1.grid(row=6, column=1, )
             bouton4_2.grid(row=6, column=2)
             tk.Label(self, text="Raffinement de l'élément :").grid()
-            tk.Radiobutton(self, text="Besoin", variable=self.origine, value=1).grid(row=7, column=1)
-            tk.Radiobutton(self, text="Exigence", variable=self.origine, value=0).grid(row=7, column=2)
-
+            b=tk.Radiobutton(self, text="Besoin")
+            b.grid(row=7, column=1)
+            e=tk.Radiobutton(self, text="Exigence")
+            e.grid(row=7, column=2)
+            #création liste contenant les objets (sous forme de radiobutton) liés à l'exigence
+            liste_bind=list()
+            b.bind('<1>', origine_besoin)
+            e.bind('<1>', origine_exigence)
             # Bouton de sortie
             bouton4 = tk.Button(self, text="Valider", command=DemanderExigenceMere)
             bouton4.grid(column=1)

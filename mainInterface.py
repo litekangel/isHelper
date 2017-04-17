@@ -46,6 +46,8 @@ def Update_menu():
 def Manage_besoin(x):
     global frame_besoin
     frame_besoin.destroy()
+    frame_exigence.destroy()
+    frame_piece.destroy()
     frame_besoin = besoin(fenetre, MgrBesoins)
     frame_besoin.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
@@ -60,7 +62,9 @@ def Manage_besoin(x):
 
 def Manage_exigence(x):
     global frame_exigence
+    frame_besoin.destroy()
     frame_exigence.destroy()
+    frame_piece.destroy()
     frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
     frame_exigence.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
@@ -72,8 +76,10 @@ def Manage_exigence(x):
         frame_exigence.Modifier_Exigence()
 
 
-def Manage_piece():
+def Manage_piece(x):
     global frame_piece
+    frame_besoin.destroy()
+    frame_exigence.destroy()
     frame_piece.destroy()
     frame_piece = piece(fenetre, MgrPieces)
     frame_piece.grid()
