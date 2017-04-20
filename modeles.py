@@ -10,9 +10,24 @@ Conception et réalisation d'un algorithme de validation d'exigences
 
 
 """
+import os
 import sqlite3 as sql
 
+import pydot
+
 from classes import *
+
+os.environ["PATH"] += os.pathsep + 'D:/Program Files (x86)/Graphviz/bin/'
+
+
+def have_same_content(a, b):
+    # a,b are lists
+    if len(a) != len(b):
+        return False
+    for e in a:
+        if e not in b:
+            return False
+    return True
 
 
 class BesoinsMgr():
@@ -42,7 +57,6 @@ class BesoinsMgr():
 
     def read(self, id_besoin=None):
         db_connect = self.connect()
-        print(db_connect)
         if (id_besoin):
             cursor = db_connect.cursor()
             besoin = cursor.execute("""SELECT * FROM besoins WHERE id_besoin = ?""", (str(id_besoin)))
@@ -130,7 +144,7 @@ class ExigencesMgr():
     def connect(self):
         return sql.connect(self.db)
 
-    def create(self, intitule, critere, besoin, espece=0, niveau=None, exigence_mere=1):
+    def create(self, intitule, critere, besoin=None, espece=0, niveau=None, exigence_mere=False):
         db_connect = self.connect()
         cursor = db_connect.cursor()
         cursor.execute("""INSERT INTO exigences
@@ -161,13 +175,16 @@ class ExigencesMgr():
             print(exigence)
             db_connect.commit()
             db_connect.close()
-            return Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[6], exigence[9])
+            return Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[2], exigence[6],
+                            exigence[9])
+        # idex, intitule, critere, origine=None, espece = 0,niveau=None, exigence_mere = 0
         cursor = db_connect.cursor()
         exigences = cursor.execute("""SELECT * FROM exigences""")
         exigences = list(exigences)
         for i, exigence in enumerate(exigences):
             exigence = list(exigence)
-            exigences[i] = Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[6], exigence[9])
+            exigences[i] = Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[2], exigence[6],
+                                    exigence[9])
             print(exigences[i])
             print('\n')
         db_connect.commit()
@@ -186,7 +203,7 @@ class ExigencesMgr():
             besoin= ?,
             exigence_mere = ?
             WHERE idex = ?""",
-                           (exigence.critere, exigence.niveau, exigence.intitule, exigence.espece, exigence.besoin,
+                           (exigence.critere, exigence.niveau, exigence.intitule, exigence.espece, exigence.origine,
                             exigence.exigence_mere, exigence.idex))
             db_connect.commit()
             db_connect.close()
@@ -220,66 +237,108 @@ class ExigencesMgr():
             self.validerExigences(exigence)
 
     def classerExigences(self):
-        exigences = list(self.read())
+        exigences = self.read()
         # On trouve les étages du graphe
         niveaux = []
         niveau0 = []
+        i = 1
+        # On génère le graphe
+        graph = pydot.Dot(graph_type='graph')
+        # On génère les noeuds pour chaque exigence
+        nodes = []
         for exigence in exigences:
-            if exigence.exigenceMere == None:
-                niveau0.append(exigence.idex)
+            node = pydot.Node(
+                "Exigence " + str(exigence.idex) + "\n" + str(exigence.intitule) + "\n" + str(exigence.critere),
+                shape='rectangle')
+            nodes.append(node)
+            graph.add_node(node)
+
+        # On extrait les exigences mères, c'est le niveau 0
+        for exigence in exigences:
+            print("****Tour " + str(i) + "/" + str(len(exigences)))
+            i += 1
+            print(exigence.exigence_mere)
+            if exigence.exigence_mere == None or exigence.exigence_mere == 0:
+                niveau0.append(exigence)
+        # On enlève les exigences du niveau 0
+        for exigence in niveau0:
+            if exigence in exigences:
                 exigences.remove(exigence)
+
         niveaux.append(niveau0)
-        hierarchie = self.hierarchie(exigences, niveaux)
 
-        return hierarchie
+        print(niveaux)
 
-    def hierarchie(self, exigences, niveaux):
+        if (len(niveau0) != 0):
+            return self.hierarchie(nodes, exigences, graph, niveaux)
+
+    def hierarchie(self, nodes, exigences, graph, niveaux):
         if (len(exigences) == 0):
+            print(niveaux)
+            graph.write_png('ex_graph.png')
             return niveaux
         else:
             meres = niveaux[-1]
+            id_meres = [mere.idex for mere in meres]
+            print("id_meres :")
+            print(id_meres)
             niveau = []
-            for exigence in exigences:
-                if exigence.exigenceMere in meres:
-                    niveau.append(exigence)
+            print("filles\n**************************")
+            id_ex = [exigence.idex for exigence in exigences]
+            print(id_ex)
+            if have_same_content(id_ex, id_meres):
+                exigences = []
+            else:
+                for exigence in exigences:
+                    if exigence.exigence_mere in id_meres:
+                        niveau.append(exigence)
+                        print("***")
+                        print(exigence)
+                        print("***")
+                        edge = pydot.Edge(nodes[exigence.exigence_mere - 1], nodes[exigence.idex - 1])
+                        graph.add_edge(edge)
+                for exigence in niveau:
                     exigences.remove(exigence)
-            niveaux.append(niveau)
-            self.hierarchie(exigences, niveaux)
+                print(niveau)
+                niveaux.append(niveau)
 
-    class ErrorMgr():
-        def __init__(self, db):
-            self.db = db
+            return self.hierarchie(nodes, exigences, graph, niveaux)
 
-        def connect(self):
-            return sql.connect(self.db)
 
-        def read(self):
-            db_connect = self.connect()
-            cursor = db_connect.cursor()
-            cursor.execute("""SELECT * FROM error""")
+class ErrorMgr():
+    def __init__(self, db):
+        self.db = db
 
-            db_connect.commit()
-            db_connect.close()
-            # to continue...
+    def connect(self):
+        return sql.connect(self.db)
 
-        def create(self, intitule, type):
-            db_connect = self.connect()
-            cursor = db_connect.cursor()
-            cursor.execute("""INSERT INTO errors SET intitule= ?, type = ?""", (intitule, type))
-            db_connect.commit()
-            db_connect.close()
+    def read(self):
+        db_connect = self.connect()
+        cursor = db_connect.cursor()
+        cursor.execute("""SELECT * FROM error""")
 
-        def delete(self, id_error):
-            db_connect = self.connect()
-            cursor = db_connect.cursor()
-            cursor.execute("""DELETE * FROM errors  WHERE id_error = ?""", (id_error))
-            db_connect.commit()
-            db_connect.close()
+        db_connect.commit()
+        db_connect.close()
+        # to continue...
 
-        def delete(self, error):
-            db_connect = self.connect()
-            cursor = db_connect.cursor()
-            cursor.execute("""UPDATE errors SET intitule = ?,type=? WHERE id_error = ?""",
-                           (error.intitule, error.type, error.id_error))
-            db_connect.commit()
-            db_connect.close()
+    def create(self, intitule, type):
+        db_connect = self.connect()
+        cursor = db_connect.cursor()
+        cursor.execute("""INSERT INTO errors SET intitule= ?, type = ?""", (intitule, type))
+        db_connect.commit()
+        db_connect.close()
+
+    def delete(self, id_error):
+        db_connect = self.connect()
+        cursor = db_connect.cursor()
+        cursor.execute("""DELETE * FROM errors  WHERE id_error = ?""", (id_error))
+        db_connect.commit()
+        db_connect.close()
+
+    def delete(self, error):
+        db_connect = self.connect()
+        cursor = db_connect.cursor()
+        cursor.execute("""UPDATE errors SET intitule = ?,type=? WHERE id_error = ?""",
+                       (error.intitule, error.type, error.id_error))
+        db_connect.commit()
+        db_connect.close()
