@@ -7,11 +7,12 @@ Ceci est un script temporaire.
 
 
 class Besoin:
-    def __init__(self, id_besoin, intitule, primaire=False, origine=None):
+    def __init__(self, id_besoin, intitule, primaire=False, origine=None, nature=None):
         self.id_besoin = id_besoin
         self.primaire = primaire  # besoin primaire
         self.intitule = intitule
         self.origine = origine
+        self.nature = nature
 
     def id_besoin(self):
         return self.id_besoin

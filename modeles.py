@@ -51,7 +51,7 @@ class BesoinsMgr():
         if (isinstance(besoin, Besoin)):
             db_connect = self.connect()
             cursor = db_connect.cursor()
-            cursor.execute("""DELETE * FROM besoins WHERE id_besoin = ?""", (besoin.id_besoin))
+            cursor.execute("""DELETE FROM besoins WHERE id_besoin = ?""", (besoin.id_besoin))
             db_connect.commit()
             db_connect.close()
 
@@ -95,7 +95,7 @@ class PieceMgr():
         db_connect = self.connect()
         cursor = db_connect.cursor()
         cursor.execute("""INSERT INTO pieces (nom_piece,couleur) VALUES(:nom,:couleur)""",
-                       {nom: nom_piece, couleur: couleur})
+                       {nom_piece: nom_piece, couleur: couleur})
         id_piece = cursor.lastrowid
         db_connect.commit()
         db_connect.close()
@@ -105,7 +105,7 @@ class PieceMgr():
         if (isinstance(piece, Piece)):
             db_connect = self.connect()
             cursor = db_connect.cursor()
-            cursor.execute("""DELETE * FROM pieces WHERE id_piece = ?""", (piece.id_piece()))
+            cursor.execute("""DELETE FROM pieces WHERE id_piece = ?""", (piece.id_piece()))
             db_connect.commit()
             db_connect.close()
 
@@ -160,7 +160,7 @@ class ExigencesMgr():
         if (isinstance(exigence, Exigence)):
             db_connect = self.connect()
             cursor = db_connect.cursor()
-            cursor.execute("""DELETE * FROM exigences WHERE idex = ?""", (exigence.idex()))
+            cursor.execute("""DELETE FROM exigences WHERE idex = ?""", (exigence.idex()))
             db_connect.commit()
             db_connect.close()
 
@@ -324,18 +324,18 @@ class ErrorMgr():
     def create(self, intitule, type):
         db_connect = self.connect()
         cursor = db_connect.cursor()
-        cursor.execute("""INSERT INTO errors SET intitule= ?, type = ?""", (intitule, type))
-        db_connect.commit()
-        db_connect.close()
-
-    def delete(self, id_error):
-        db_connect = self.connect()
-        cursor = db_connect.cursor()
-        cursor.execute("""DELETE * FROM errors  WHERE id_error = ?""", (id_error))
+        cursor.execute("""INSERT INTO errors (intitule, type) VALUES(?,?)""", (intitule, type))
         db_connect.commit()
         db_connect.close()
 
     def delete(self, error):
+        db_connect = self.connect()
+        cursor = db_connect.cursor()
+        cursor.execute("""DELETE FROM errors  WHERE id_error = ?""", str(error.id_error))
+        db_connect.commit()
+        db_connect.close()
+
+    def update(self, error):
         db_connect = self.connect()
         cursor = db_connect.cursor()
         cursor.execute("""UPDATE errors SET intitule = ?,type=? WHERE id_error = ?""",
