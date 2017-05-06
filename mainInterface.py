@@ -53,7 +53,7 @@ def Manage_exigence(x):
     # x est une variable locale qui permet de gérer l'action à réaliser
     # avant d'effectuer l'action on test si elle est réalisable
     if x == 1:
-        if len(MgrBesoins.read()) < 10:
+        if len(MgrBesoins.read()) < 1:
             showerror("Ajout d'exigence", "Aucun besoin n'est renseigné")
             return
         frame_exigence.Renseigner_Exigence()

@@ -144,7 +144,7 @@ class ExigencesMgr():
     def connect(self):
         return sql.connect(self.db)
 
-    def create(self, intitule, critere, besoin=None, espece=0, niveau=None, exigence_mere=False):
+    def create(self, intitule, critere, besoin=None, espece=0, niveau=None, exigence_mere=None):
         db_connect = self.connect()
         cursor = db_connect.cursor()
         cursor.execute("""INSERT INTO exigences
