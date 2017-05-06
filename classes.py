@@ -7,7 +7,7 @@ Ceci est un script temporaire.
 
 
 class Besoin:
-    def __init__(self, id_besoin, intitule, primaire=False, origine=None, nature=None):
+    def __init__(self, id_besoin, intitule, primaire=None, origine=None, nature=None):
         self.id_besoin = id_besoin
         self.primaire = primaire  # besoin primaire
         self.intitule = intitule

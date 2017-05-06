@@ -36,7 +36,7 @@ class BesoinsMgr():
     def connect(self):
         return sql.connect(self.db)
 
-    def create(self, intitule, nature, primaire=False, origine=False):
+    def create(self, intitule, nature, primaire=None, origine=False):
         db_connect = self.connect()
         cursor = db_connect.cursor()
         cursor.execute("""INSERT INTO besoins (intitule,primaire,origine,nature) VALUES(?,?,?,?)""",
