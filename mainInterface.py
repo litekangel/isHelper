@@ -72,7 +72,7 @@ def Manage_exigence(x):
             return
         frame_exigence.Modifier_Exigence()
     elif x == 4:
-        frame_exigence.update_origin(exigence_idex)
+        frame_exigence.Verify_exigence()
 
 
 def Manage_piece(x):
@@ -118,14 +118,6 @@ def Export_project():
     fenetre.filename = filedialog.asksaveasfilename(initialdir="/", title="Select file",
                                                     filetypes=[("csv files", "*.csv")])
     save_project(fenetre.filename, MgrBesoins, MgrExigences)
-
-def Verify_exigence():
-    for exigence in MgrExigences.read():
-        if exigence.origine == 1:
-            if askquestion('Origine des exigences', """l'exigence "{}" n'est pas liée à un besoin ou à une autre exigence, voulez vous la renseigner ?""".format(exigence.intitule)):
-                global exigence_idex
-                exigence_idex = exigence.idex
-                Manage_exigence(4)
 
 def Show():
     global frame_affichage
@@ -183,7 +175,7 @@ menubar.add_cascade(label="Données", menu=menu2)
 
 menu3 = tk.Menu(menubar, tearoff=0)
 menu3.configure(background='#ecf0f1', foreground="#2c3e50")
-menu3.add_command(label="Vérifier architecture fonctionnelle", command=Verify_exigence)
+menu3.add_command(label="Vérifier architecture fonctionnelle", command=lambda x=4 Manage_exigence(4))
 menu3.add_separator()
 menu3.add_command(label="Afficher objets", command=Show)
 menubar.add_cascade(label="Tester", menu=menu3)

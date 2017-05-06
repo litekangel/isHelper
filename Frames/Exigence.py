@@ -3,6 +3,7 @@ from modeles import *
 import sqlite3 as sql
 import tkinter as tk
 from tkinter.ttk import *
+from tkinter import filedialog
 
 class exigence(tk.Frame):
     def __init__(self, fenetre, MgrBesoins, MgrExigences):
@@ -11,7 +12,7 @@ class exigence(tk.Frame):
         self.intitule = tk.StringVar()
         self.critere = tk.StringVar()
         self.niveau = tk.StringVar()
-        self.mere = tk.StringVar()
+        self.mere = tk.StringVar(value='None')
         self.nom_exigence = tk.StringVar()
         self.origine = tk.StringVar(value='None')
         self.MgrBesoins=MgrBesoins
@@ -23,12 +24,16 @@ class exigence(tk.Frame):
                 self.MgrExigences.create(self.intitule.get(), self.critere.get(), besoin=int(self.origine.get()[:self.origine.get().index('.')]),
                                 espece=int(self.value.get()), niveau=int(self.niveau.get()), exigence_mere=None)
                 self.destroy()
-            else:
+            elif self.mere.get() != 'None':
                 self.MgrExigences.create(self.intitule.get(), self.critere.get(), besoin=None,
                                          espece=int(self.value.get()), niveau=int(self.niveau.get()),
                                          exigence_mere=int(self.mere.get()[:self.mere.get().index('.')]))
                 self.destroy()
-
+            else:
+                self.MgrExigences.create(self.intitule.get(), self.critere.get(),
+                                         besoin=None, espece=int(self.value.get()), niveau=int(self.niveau.get()),
+                                         exigence_mere=None)
+                self.destroy()
 
         def Valider():
             # nettoyage de la zone d'affichage
@@ -125,7 +130,7 @@ class exigence(tk.Frame):
                 self.exigence = None
                 self.MgrExigences.update(exige)
                 self.destroy()
-            else:
+            elif self.mere.get() != 'None':
                 exige = self.MgrExigences.read(int(Select.get()[:Select.get().index('.')]))
                 exige.intitule = self.intitule.get()
                 exige.critere = self.critere.get()
@@ -133,6 +138,16 @@ class exigence(tk.Frame):
                 exige.espece = self.value.get()
                 exige.niveau = self.niveau.get()
                 self.exigence_mere= int(self.mere.get()[:self.mere.get().index('.')])
+                self.MgrExigences.update(exige)
+                self.destroy()
+            else:
+                exige = self.MgrExigences.read(int(Select.get()[:Select.get().index('.')]))
+                exige.intitule = self.intitule.get()
+                exige.critere = self.critere.get()
+                exige.origine = None
+                exige.espece = self.value.get()
+                exige.niveau = self.niveau.get()
+                self.exigence_mere = None
                 self.MgrExigences.update(exige)
                 self.destroy()
         def Valider():
@@ -211,36 +226,47 @@ class exigence(tk.Frame):
         tk.Button(self, text="Valider", command=Valider).grid()
 
     def update_origin(self, exigence_idex):
-        def Valider():
-            #self.MgrExigences.read(int(exigence_idex)).origine = self.origine.get()
-            #self.MgrExigences.update(self.MgrExigences.read(int(exigence_idex)))
-            self.destroy()
-
+        def Update():
+            if self.origine.get() != 'None':
+                exige = self.MgrExigences.read(exigence_idex)
+                exige.origine = int(self.origine.get()[:self.origine.get().index('.')])
+                self.exigence = None
+                self.MgrExigences.update(exige)
+                self.destroy()
+            else:
+                exige = self.MgrExigences.read(exigence_idex)
+                exige.origine = None
+                self.exigence_mere= int(self.mere.get()[:self.mere.get().index('.')])
+                self.MgrExigences.update(exige)
+                self.destroy()
         def origine_besoin(event):
             # supression de la surcharge affichage
             for elt in liste_bind:
                 elt.destroy()
             liste_bind.clear()
             # création du nouvel affichage
+            Stock = list()
             for i in self.MgrBesoins.read():
-                liste_bind.append(tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.id_besoin))
-            liste_bind.append(tk.Button(self, text="Valider", command=Valider))
-            bouton4.destroy()
+                Stock.append(str(i.id_besoin) + '. ' + i.intitule)
+            liste_bind.append(Combobox(self, textvariable=self.origine, values=Stock, state='readonly'))
+            liste_bind.append(tk.Button(self, text="Valider", command=Update))
             for elt in liste_bind:
                 elt.grid(column=1)
-
+            self.mere = tk.StringVar(value='None')
         def origine_exigence(event):
             # supression de la surcharge affichage
             for elt in liste_bind:
                 elt.destroy()
             liste_bind.clear()
             # création du nouvel affichage
+            Stock = list()
             for i in self.MgrExigences.read():
-                liste_bind.append(tk.Radiobutton(self, text=str(i.intitule), variable=self.origine, value=i.idex))
-            liste_bind.append(tk.Button(self, text="Valider", command=Valider))
-            bouton4.destroy()
+                Stock.append(str(i.idex) + '. ' + i.intitule)
+            liste_bind.append(Combobox(self, textvariable=self.mere, values=Stock, state='readonly'))
+            liste_bind.append(tk.Button(self, text="Valider", command=Update))
             for elt in liste_bind:
                 elt.grid(column=1)
+            self.origine = tk.StringVar(value='None')
 
         tk.Label(self, text="Raffinement de l'élément :").grid()
         b = tk.Radiobutton(self, text="Besoin")
@@ -251,6 +277,23 @@ class exigence(tk.Frame):
         liste_bind = list()
         b.bind('<1>', origine_besoin)
         e.bind('<1>', origine_exigence)
-        # Bouton de sortie
-        bouton4 = tk.Button(self, text="Valider", command=Valider)
-        bouton4.grid(column=1)
+
+    def Verify_exigence(self):
+        liste_ex = list()
+        for exigence in self.MgrExigences.read():
+            liste_ex.append(exigence)
+        def test(i):
+            if liste_ex[i].origine == None and liste_ex[i].exigence_mere == None:
+                if askquestion('Origine des exigences',
+                               """l'exigence "{}" n'est pas liée à un besoin ou à une autre exigence, voulez vous la
+                               renseigner ?""".format(exigence.intitule)):
+                    self.update_origin(liste_ex[i].idex)
+                    tk.Button(self, text=Valider, command=lambda x=i+1: test(i)).grid()
+                elif:
+                    i == len(liste_ex)
+                    self.destroy()
+                else:
+                    test(i+1)
+
+
+
