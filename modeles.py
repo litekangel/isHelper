@@ -45,7 +45,7 @@ class BesoinsMgr():
         id_besoin = cursor.lastrowid
         db_connect.commit()
         db_connect.close()
-        return Besoin(id_besoin, intitule, primaire)
+        return Besoin(str(id_besoin), intitule, primaire)
 
     def delete(self, besoin):
         if (isinstance(besoin, Besoin)):
@@ -63,12 +63,12 @@ class BesoinsMgr():
             data = cursor.fetchone()
             db_connect.commit()
             db_connect.close()
-            return Besoin(data[0], data[1], data[2])
+            return Besoin(str(data[0]), data[1], data[2])
         cursor = db_connect.cursor()
         q = cursor.execute("""SELECT * FROM besoins""")
         besoins = cursor.fetchall()
         for i, besoin in enumerate(besoins):
-            besoins[i] = Besoin(besoin[0], besoin[1], besoin[2])
+            besoins[i] = Besoin(str(besoin[0]), besoin[1], besoin[2])
         print(besoins)
         db_connect.commit()
         db_connect.close()
@@ -123,7 +123,7 @@ class PieceMgr():
         db_connect.commit()
         db_connect.close()
         for i, piece in enumerate(pieces):
-            pieces[i] = Piece(piece[0], piece[1], piece[2])
+            pieces[i] = Piece(str(piece[0]), piece[1], piece[2])
         return pieces
 
     def update(self, piece):
@@ -160,7 +160,7 @@ class ExigencesMgr():
         if (isinstance(exigence, Exigence)):
             db_connect = self.connect()
             cursor = db_connect.cursor()
-            cursor.execute("""DELETE FROM exigences WHERE idex = ?""", (exigence.idex()))
+            cursor.execute("""DELETE FROM exigences WHERE idex = ?""", (exigence.idex))
             db_connect.commit()
             db_connect.close()
 
@@ -175,7 +175,7 @@ class ExigencesMgr():
             print(exigence)
             db_connect.commit()
             db_connect.close()
-            return Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[2], exigence[6],
+            return Exigence(str(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[2], exigence[6],
                             exigence[9])
         # idex, intitule, critere, origine=None, espece = 0,niveau=None, exigence_mere = 0
         cursor = db_connect.cursor()
@@ -183,7 +183,7 @@ class ExigencesMgr():
         exigences = list(exigences)
         for i, exigence in enumerate(exigences):
             exigence = list(exigence)
-            exigences[i] = Exigence(int(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[2], exigence[6],
+            exigences[i] = Exigence(str(exigence[0]), exigence[3], exigence[4], exigence[5], exigence[2], exigence[6],
                                     exigence[9])
             print(exigences[i])
             print('\n')
