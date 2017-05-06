@@ -2,6 +2,7 @@ from classes import *
 from modeles import *
 import sqlite3 as sql
 import tkinter as tk
+from tkinter.ttk import *
 
 class besoin(tk.Frame):
     def __init__(self, fenetre, MgrBesoins):
@@ -20,6 +21,9 @@ class besoin(tk.Frame):
             self.destroy()
 
         def Valider():
+            # nettoyage de la zone d'affichage
+            for elt in self.winfo_children():
+                elt.destroy()
             # récupération de l'intitulé du besoin
             txt1 = tk.Label(self, text='Intitulé :')
             entree0 = tk.Entry(self, textvariable=self.intitule1, width=100)
@@ -40,36 +44,45 @@ class besoin(tk.Frame):
 
     def Del_Besoin(self):
         def Valider():
-            self.MgrBesoins.delete(self.nom_besoin)
+            self.MgrBesoins.delete(int(Select.get()[:Select.get().index('.')]))
             self.destroy()
-
+        Select = tk.StringVar()
+        Stock = list()
         for i in self.MgrBesoins.read():
-            texte = str(i.intitule)
-            tk.Radiobutton(self, text=texte, variable=self.nom_besoin, value=i.id_besoin).pack()
-        tk.Button(self, text="Valider", command=Valider).pack()
+            Stock.append(str(i.id_besoin) + '. ' + i.intitule)
+        ListeElt = Combobox(self, textvariable=Select, values=Stock, state='readonly')
+        ListeElt.grid()
+        tk.Button(self, text="Valider", command=Valider).grid()
 
     def Modifier_Besoin(self):
         def Update():
-            self.MgrBesoins.read(int(self.nom_besoin.get())).intitule = self.intitule1.get()
-            self.MgrBesoins.read(int(self.nom_besoin.get())).primaire = int(self.value.get())
-            self.MgrBesoins.read(int(self.nom_besoin.get())).origine = self.origine.get()
-            self.MgrBesoins.update(self.MgrBesoins.read(int(self.nom_besoin.get())))
+            bes=self.MgrBesoins.read(int(Select.get()[:Select.get().index('.')]))
+            bes.intitule = self.intitule1.get()
+            bes.primaire = int(self.value.get())
+            bes.origine = self.origine.get()
+            self.MgrBesoins.update(bes)
             self.destroy()
 
         def Valider():
+            # nettoyage de la zone d'affichage
+            for elt in self.winfo_children():
+                elt.destroy()
             # récupération de l'intitulé du besoin
             txt1 = tk.Label(self, text='Intitulé :')
             entree0 = tk.Entry(self, textvariable=self.intitule1, width=100)
             txt1.grid()
-            entree0.grid(row= 2+len(self.MgrBesoins.read()), column=1)
+            entree0.grid(row= 0, column=1)
             tk.Label(self, text='Origine du besoin :').grid()
-            tk.Entry(self, textvariable=self.origine, width=100).grid(row=4+len(self.MgrBesoins.read()), column=1)
-            tk.Radiobutton(self, text="Besoin Primaire", variable=self.value, value=1).grid()
-            tk.Radiobutton(self, text="Besoin Secondaire", variable=self.value, value=0).grid()
-            tk.Button(self, text="Valider", command=Update).grid()
+            tk.Entry(self, textvariable=self.origine, width=100).grid(row=1, column=1)
+            tk.Radiobutton(self, text="Besoin Primaire", variable=self.value, value=1).grid(row=2, column= 0)
+            tk.Radiobutton(self, text="Besoin Secondaire", variable=self.value, value=0).grid(row=2, column= 1)
+            tk.Button(self, text="Valider", command=Update).grid(column=1)
 
         tk.Label(self, text="Identifiant du besoin à modifier: ").grid()
+        Select = tk.StringVar()
+        Stock = list()
         for i in self.MgrBesoins.read():
-            texte = str(i.intitule)
-            tk.Radiobutton(self, text=texte, variable=self.nom_besoin, value=i.id_besoin).grid()
+            Stock.append(str(i.id_besoin) + '. ' + i.intitule)
+        ListeElt = Combobox(self, textvariable=Select, values=Stock, state='readonly')
+        ListeElt.grid()
         tk.Button(self, text="Valider", command=Valider).grid()
