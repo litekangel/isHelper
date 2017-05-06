@@ -37,15 +37,15 @@ class BesoinsMgr():
     def connect(self):
         return sql.connect(self.db)
 
-    def create(self, intitule, primaire=False, origine=False):
+    def create(self, intitule, nature, primaire=False, origine=False):
         db_connect = self.connect()
         cursor = db_connect.cursor()
-        cursor.execute("""INSERT INTO besoins (intitule,primaire,origine) VALUES(?,?,?)""",
-                       (intitule, primaire, origine))
+        cursor.execute("""INSERT INTO besoins (intitule,primaire,origine,nature) VALUES(?,?,?,?)""",
+                       (intitule, primaire, origine, nature))
         id_besoin = cursor.lastrowid
         db_connect.commit()
         db_connect.close()
-        return Besoin(str(id_besoin), intitule, primaire)
+        return Besoin(str(id_besoin), intitule, primaire, nature)
 
     def delete(self, besoin):
         if (isinstance(besoin, Besoin)):
@@ -78,8 +78,8 @@ class BesoinsMgr():
         if (isinstance(besoin, Besoin)):
             db_connect = self.connect()
             cursor = db_connect.cursor()
-            cursor.execute("""UPDATE besoins SET intitule = ?, primaire=? WHERE id_besoin = ?""",
-                           (besoin.intitule, besoin.primaire, besoin.id_besoin))
+            cursor.execute("""UPDATE besoins SET intitule = ?, primaire=?, nature=? WHERE id_besoin = ?""",
+                           (besoin.intitule, besoin.primaire, besoin.nature, besoin.id_besoin))
             db_connect.commit()
             db_connect.close()
 
@@ -144,7 +144,7 @@ class ExigencesMgr():
     def connect(self):
         return sql.connect(self.db)
 
-    def create(self, intitule, critere, besoin=None, espece=0, niveau=None, exigence_mere=None):
+    def create(self, intitule, critere, espece, besoin=None, niveau=None, exigence_mere=None):
         db_connect = self.connect()
         cursor = db_connect.cursor()
         cursor.execute("""INSERT INTO exigences

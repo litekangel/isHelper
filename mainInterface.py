@@ -175,7 +175,7 @@ menubar.add_cascade(label="Données", menu=menu2)
 
 menu3 = tk.Menu(menubar, tearoff=0)
 menu3.configure(background='#ecf0f1', foreground="#2c3e50")
-menu3.add_command(label="Vérifier architecture fonctionnelle", command=lambda x=4 Manage_exigence(4))
+menu3.add_command(label="Vérifier architecture fonctionnelle", command=lambda x=4: Manage_exigence(4))
 menu3.add_separator()
 menu3.add_command(label="Afficher objets", command=Show)
 menubar.add_cascade(label="Tester", menu=menu3)

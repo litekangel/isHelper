@@ -14,14 +14,14 @@ cursor = db.cursor()
 cursor.execute("""CREATE TABLE pieces(
             id_piece INTEGER PRIMARY KEY,
             nom_piece TEXT,
-            couleur INTEGER); """)
+            couleur TEXT); """)
 cursor.execute("""CREATE TABLE exigences(
             idex INTEGER PRIMARY KEY AUTOINCREMENT,
             type TEXT,
             besoin INT,
             intitule TEXT,
             critere TEXT,
-            espece INTEGER,
+            espece TEXT,
             niveau INT,
             resultat INT,
             conclusion INT,
@@ -33,7 +33,8 @@ cursor.execute("""CREATE TABLE systeme(
 cursor.execute("""CREATE TABLE besoins(
             id_besoin INTEGER PRIMARY KEY,
             intitule TEXT,
-            primaire INTEGER); """)
+            primaire INTEGER,
+            nature TEXT); """)
 cursor.execute("""CREATE TABLE testresults(
             idex INTEGER PRIMARY KEY,
             critere TEXT,

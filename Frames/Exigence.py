@@ -17,21 +17,24 @@ class exigence(tk.Frame):
         self.origine = tk.StringVar(value='None')
         self.MgrBesoins=MgrBesoins
         self.MgrExigences=MgrExigences
+        self.modele = tk.StringVar()
+        self.espece = tk.StringVar()
 
     def Renseigner_Exigence(self):
         def CreerExigence():
+            var = self.espece.get() + self.intitule.get()
             if self.origine.get() != 'None':
-                self.MgrExigences.create(self.intitule.get(), self.critere.get(), besoin=int(self.origine.get()[:self.origine.get().index('.')]),
-                                espece=int(self.value.get()), niveau=int(self.niveau.get()), exigence_mere=None)
+                self.MgrExigences.create(var, self.critere.get(), besoin=int(self.origine.get()[:self.origine.get().index('.')]),
+                                espece=self.modele.get(), niveau=int(self.niveau.get()), exigence_mere=None)
                 self.destroy()
             elif self.mere.get() != 'None':
-                self.MgrExigences.create(self.intitule.get(), self.critere.get(), besoin=None,
-                                         espece=int(self.value.get()), niveau=int(self.niveau.get()),
+                self.MgrExigences.create(var, self.critere.get(), besoin=None,
+                                         espece=self.modele.get(), niveau=int(self.niveau.get()),
                                          exigence_mere=int(self.mere.get()[:self.mere.get().index('.')]))
                 self.destroy()
             else:
-                self.MgrExigences.create(self.intitule.get(), self.critere.get(),
-                                         besoin=None, espece=int(self.value.get()), niveau=int(self.niveau.get()),
+                self.MgrExigences.create(var, self.critere.get(),
+                                         besoin=None, espece=self.modele.get(), niveau=int(self.niveau.get()),
                                          exigence_mere=None)
                 self.destroy()
 
@@ -71,21 +74,30 @@ class exigence(tk.Frame):
                 self.origine = tk.StringVar(value='None')
             # récupération de l'intitulé de l'exigence
             txt1 = tk.Label(self, text='Intitulé :')
+            # on force l'écriture partielle du besoin en fct du type de besoin demandé
+            # liste des possibilités
+            liste_entree = [["Le système doit "], ["Doit être ", "Doit avoir "], ["Interréagir ", "Communiquer ", "Permettre "],
+                            ["Assurer "], ["Utiliser ", "Respecter ", "Imposer "], ["S'adapter "]]
+            pos = Stock.index(self.modele.get())
+            # Mise à jour zone écriture en fct
+            Stock2 = liste_entree[pos]
+            ListeElt = Combobox(self, textvariable=self.espece, values=Stock2, state='readonly')
+            ListeElt.grid(row=0, column=1)
             entree0 = tk.Entry(self, textvariable=self.intitule, width=100)
             # récupération de la caractéristique de l'exigence
             txt2 = tk.Label(self, text='Caractéristique :')
-            entree1 = tk.Entry(self, textvariable=self.critere, width=30)
+            entree1 = tk.Entry(self, textvariable=self.critere, width=100)
             # récupération du niveau du critère
             txt3 = tk.Label(self, text='Niveau du critère :')
-            entree2 = tk.Entry(self, textvariable=self.niveau, width=30)
+            entree2 = tk.Entry(self, textvariable=self.niveau, width=100)
             # récupération de la caratéristique mère
             # Récupération beoin lié
-            txt1.grid()
+            txt1.grid(row=0)
             txt2.grid()
             txt3.grid()
-            entree0.grid(row=0, column=1)
-            entree1.grid(row=1, column=1)
-            entree2.grid(row=2, column=1)
+            entree0.grid(row=0, column=2)
+            entree1.grid(row=1, column=1 and 2)
+            entree2.grid(row=2, column=1 and 2)
             tk.Label(self, text="Raffinement de l'élément :").grid()
             b=tk.Radiobutton(self, text="Besoin")
             b.grid(row=3, column=1)
@@ -99,11 +111,12 @@ class exigence(tk.Frame):
             bouton4 = tk.Button(self, text="Valider", command=CreerExigence)
             bouton4.grid(column=1)
 
-        bouton1 = tk.Radiobutton(self, text="Fonctionnelle", variable=self.value, value=1)
-        bouton2 = tk.Radiobutton(self, text="Non Fonctionnelle", variable=self.value, value=0)
         bouton3 = tk.Button(self, text="Valider", command=Valider)
-        bouton1.grid()
-        bouton2.grid()
+        tk.Label(self, text='Type de besoin').grid()
+        Stock = ['Exigence fonctionnelle', "Exigence d'efficacité", "Exigence d'intéraction", "Exigence de sécurité",
+                 "Exigence de contrainte", "Exigence d'environnement"]
+        ListeElt = Combobox(self, textvariable=self.modele, values=Stock, state='readonly')
+        ListeElt.grid(row=0, column=1)
         bouton3.grid()
 
     def Del_Exigence(self):
@@ -289,8 +302,7 @@ class exigence(tk.Frame):
                                renseigner ?""".format(exigence.intitule)):
                     self.update_origin(liste_ex[i].idex)
                     tk.Button(self, text=Valider, command=lambda x=i+1: test(i)).grid()
-                elif:
-                    i == len(liste_ex)
+                elif i == len(liste_ex):
                     self.destroy()
                 else:
                     test(i+1)
