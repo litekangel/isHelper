@@ -2,6 +2,7 @@ from classes import *
 from modeles import *
 import sqlite3 as sql
 import tkinter as tk
+from tkinter.ttk import *
 
 class piece(tk.Frame):
     def __init__(self, fenetre, MgrPieces):
@@ -30,31 +31,40 @@ class piece(tk.Frame):
 
     def Del_Piece(self):
         def Valider():
-            self.MgrPieces.delete(self.nom_piece)
+            print('mmmmm')
+            print(int(Select.get()[:Select.get().index('.')]))
+            self.MgrPieces.delete(int(Select.get()[:Select.get().index('.')]))
             self.destroy()
-
+        Select = tk.StringVar()
+        Stock = list()
         for i in self.MgrPieces.read():
-            texte = str(i.nom)
-            tk.Radiobutton(self, text=texte, variable=self.nom_piece, value=i.nom).pack()
-        tk.Button(self, text="Valider", command=Valider).pack()
+            Stock.append(str(i.id_piece) + '. ' + i.nom)
+        ListeElt = Combobox(self, textvariable=Select, values=Stock, state='readonly')
+        ListeElt.grid()
+        tk.Button(self, text="Valider", command=Valider).grid()
 
     def Modifier_Piece(self):
         def Update():
+            pie=self.MgrPieces.read(Select.get()[:Select.get().index('.')])
             # Mise à jour des variables
-            self.MgrPieces.read(int(self.nom_piece.get())).nom = self.intitule_piece.get()
-            self.MgrPieces.read(int(self.nom_piece.get())).couleur = self.couleur.get()
-            self.MgrPieces.update(self.MgrPieces.read(int(self.nom_piece.get())))
+            pie.nom = self.intitule_piece.get()
+            pie.couleur = self.couleur.get()
+            self.MgrPieces.update(pie)
             self.destroy()
 
         def Valider():
+            for elt in self.winfo_children():
+                elt.destroy()
             tk.Label(self, text='Nom de la pièce :').grid()
             tk.Entry(self, textvariable=self.intitule_piece, width=50).gid()
             tk.Label(self, text='Couleur :').grid()
             tk.Entry(self, textvariable=self.couleur, width=50).grid()
             tk.Button(self, text="Valider", command=Update).grid()
-
         tk.Label(self, text="Identifiant de la pièce à modifier: ").grid()
+        Select = tk.StringVar()
+        Stock = list()
         for i in self.MgrPieces.read():
-            texte = str(i.nom)
-            tk.Radiobutton(self, text=texte, variable=self.nom_piece, value=i.id_piece).pack()
-        tk.Button(self, text="Valider", command=Valider).pack()
+            Stock.append(str(i.id_piece) + '. ' + i.nom)
+        ListeElt = Combobox(self, textvariable=Select, values=Stock, state='readonly')
+        ListeElt.grid()
+        tk.Button(self, text="Valider", command=Valider).grid()

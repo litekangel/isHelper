@@ -5,6 +5,7 @@ from tkinter.messagebox import *
 from Frames.Besoin import besoin
 from Frames.Exigence import exigence
 from Frames.Piece import piece
+from Frames.Affichage import affichage
 from Modules.lectureBesoin import read_besoin
 from Modules.lectureExigence import read_exigence
 from Modules.lectureNomenclature import read_nomenclature
@@ -25,6 +26,7 @@ fenetre.tk_setPalette(background='#2c3e50', troughColor="#c1392b")
 frame_besoin = besoin(fenetre, MgrBesoins)
 frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
 frame_piece = piece(fenetre, MgrPieces)
+frame_affichage = affichage(fenetre, MgrBesoins, MgrExigences, MgrPieces)
 
 
 def Manage_besoin(x):
@@ -32,6 +34,7 @@ def Manage_besoin(x):
     frame_besoin.destroy()
     frame_exigence.destroy()
     frame_piece.destroy()
+    frame_affichage.destroy()
     frame_besoin = besoin(fenetre, MgrBesoins)
     frame_besoin.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
@@ -48,6 +51,7 @@ def Manage_exigence(x):
     frame_besoin.destroy()
     frame_exigence.destroy()
     frame_piece.destroy()
+    frame_affichage.destroy()
     frame_exigence = exigence(fenetre, MgrBesoins, MgrExigences)
     frame_exigence.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
@@ -76,6 +80,7 @@ def Manage_piece(x):
     frame_besoin.destroy()
     frame_exigence.destroy()
     frame_piece.destroy()
+    frame_affichage.destroy()
     frame_piece = piece(fenetre, MgrPieces)
     frame_piece.grid()
     # x est une variable locale qui permet de gérer l'action à réaliser
@@ -122,6 +127,18 @@ def Verify_exigence():
                 exigence_idex = exigence.idex
                 Manage_exigence(4)
 
+def Show():
+    global frame_affichage
+    frame_besoin.destroy()
+    frame_exigence.destroy()
+    frame_piece.destroy()
+    frame_affichage.destroy()
+    frame_affichage = affichage(fenetre, MgrBesoins, MgrExigences, MgrPieces)
+    frame_affichage.grid()
+    frame_affichage.affichage_besoins()
+    frame_affichage.affichage_exigences()
+    #frame_affichage.affichage_pieces()
+
 
 
 
@@ -167,6 +184,8 @@ menubar.add_cascade(label="Données", menu=menu2)
 menu3 = tk.Menu(menubar, tearoff=0)
 menu3.configure(background='#ecf0f1', foreground="#2c3e50")
 menu3.add_command(label="Vérifier architecture fonctionnelle", command=Verify_exigence)
+menu3.add_separator()
+menu3.add_command(label="Afficher objets", command=Show)
 menubar.add_cascade(label="Tester", menu=menu3)
 fenetre.config(menu=menubar)
 

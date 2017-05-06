@@ -102,11 +102,9 @@ class exigence(tk.Frame):
         bouton3.grid()
 
     def Del_Exigence(self):
-        self.MgrExigences.read()
         def Valider():
             self.MgrExigences.delete(int(Select.get()[:Select.get().index('.')]))
             self.destroy()
-            self.MgrExigences.read()
         Select = tk.StringVar()
         Stock = list()
         for i in self.MgrExigences.read():

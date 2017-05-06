@@ -94,8 +94,8 @@ class PieceMgr():
     def create(self, nom_piece, couleur):
         db_connect = self.connect()
         cursor = db_connect.cursor()
-        cursor.execute("""INSERT INTO pieces (nom_piece,couleur) VALUES(:nom,:couleur)""",
-                       {nom_piece: nom_piece, couleur: couleur})
+        cursor.execute("""INSERT INTO pieces (nom_piece,couleur) VALUES(?,?)""",
+                       {nom_piece, couleur})
         id_piece = cursor.lastrowid
         db_connect.commit()
         db_connect.close()
