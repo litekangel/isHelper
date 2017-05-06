@@ -8,7 +8,6 @@ Divers raccords sur la nomenclature
 Conception et réalisation d'un algorithme de validation d'exigences
 05/12/17:
 
-
 """
 import os
 import sqlite3 as sql

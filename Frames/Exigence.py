@@ -1,6 +1,3 @@
-from classes import *
-from modeles import *
-import sqlite3 as sql
 import tkinter as tk
 from tkinter.ttk import *
 from tkinter import filedialog
