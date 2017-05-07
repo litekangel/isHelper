@@ -101,7 +101,7 @@ def Import_besoin():
 def Import_exigence():
     fenetre.filename = filedialog.askopenfilename(initialdir="/", title="Select file",
                                                   filetypes=[("csv files", "*.csv")])
-    read_exigence(fenetre.filename, MgrExigences)
+    read_exigence(fenetre.filename, MgrExigences, MgrBesoins)
 
 
 # def Import_piece():

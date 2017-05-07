@@ -1,68 +1,44 @@
-ï»¿E.F 1;Le robot doit rÃ©cupÃ©rer la piÃ¨ce en entrÃ©e;B.SI 1
-E.F 1.1;Le robot doit pouvoir soulever une piÃ¨ce de 60g;B.Ser 1.1
-E.F 1.2;Le robot doit pouvoir lacher la piÃ¨ce avec une prÃ©cision d'un tenon;B.Ser 1.2
-E.F 1.3;Le robot doit pouvoir saisir une piÃ¨ce de dimension 4x4 tenons;B.Ser
-E.F 1.3;Le robot doit pouvoir tourner de 180Â° en moins de 5 secondes;B.Ser 1.3
-E.F 2;Le robot doit pouvoir dÃ©tecter les couleurs (code RGB);B.Ser 2
-E.F 2.1;Le robot doit dÃ©tecter une piÃ¨ce bleue;B.Ser 2.1
-E.F 2.2;Le robot doit passer en mode tÃ©lÃ©-opÃ©rÃ© dÃ¨s le dÃ©but de la mission;B.Ser 2.2
-E.F 3;Le robot doit pouvoir dÃ©tecter les dimensions de la piÃ¨ce saisie;B.Ser 3
-E.F 3.1;Le robot doit diffÃ©rencier les piÃ¨ces de dimension 4x4x2 des autres;B.Ser 3.1
-E.F 3.2;Le robot doit passer en mode tÃ©lÃ©-opÃ©rÃ© dÃ¨s le dÃ©but de la mission;B.Ser 3.2
-;;
-Identifiant;Exigences d'efficacitÃ©;Origine
-E.Eff 1;Chaque tri doit Ãªtre rÃ©alisÃ© en 30s maximum;B.Eff 1
-E.Eff 2;La batterie doit pouvoir alimenter le robot pensant 6 heures minimum;B.Eff 2
-E.Eff 3;La capacitÃ© de stockage du programme doit Ãªtre supÃ©rieure Ã  60ko;B.Eff 3
-E.Eff 4;Les commandes du robot doivent Ãªtre intuitives pour l'opÃ©rateur;B.Eff 4
-;;
-Identifiant;Exigences d'intÃ©ractions et connexions;Origine
-E.IC 1;La batterie doit Ãªtre facilement accessible;B.IC 1
-E.IC 2;Les deux programmes doivent pouvoir Ãªtre intervertis en moins d'une minute;B.IC 3
-E.IC 3;La transmission des donnÃ©es doit se faire en bluetooth;B.IC 4
-E.IC 3.1;L'opÃ©rateur doit se trouver Ã  moins de 10m du robot;B.IC 4
-E.IC 4;Les deux programmes doivent Ãªtre prÃªts Ã  Ãªtre utilisÃ©s;B.IC 5
-;;
-Identifiant;Facteurs humains;Origine
-E.FH 1;L'opÃ©rateur doit apprendre rapidement Ã  contrÃ´ler le robot;B.FH 1
-;;
-Identifiant;SuretÃ© de fonctionnement;Origine
-E.SF 1;Le robot doit arrÃªter son mouvement en cas de perte d'Ã©quilibre;B.SF 1
-E.SF 2;La projection du robot doit rester dans l'aire de travail;B.SF 2
-;;
-Identifiant;Environnement opÃ©rationnel imposÃ©;Origine
-E.Env 1;La zone de travail a pour dimensions 32x32 tenons;B.Env 1
-E.Env 1.1;La projection du robot doit rester dans l'aire de travail;B.Env 1
-E.Env 2;Le robot doit fonctionner dans les conditions Environnementales fixÃ©es;B.Env 2
-E.Env 2.1;La tempÃ©rature ambiante varie entre 15Â°C et 32Â°C;B.Env 2
-E.Env 2.2;La pression atmosphÃ©rique est comprise entre 1000mb et 1030mb;B.Env 2
-E.Env 2.3;L'hygromÃ©trie est comprise entre 40% et 75%;B.Env 2
-E.Env 2.4;La luminositÃ© est comprise entre 100 et 300 lumen;B.Env 2
-E.Env 3;Le robot doit s'adapter Ã  l'Environnement mÃ©canique;B.Env 3
-E.Env 3.1;Le robot doit absorber les vibrations sans Ãªtre desÃ©quilibrÃ©;B.Env 3
-E.Env 3.2;Le robot doit compenser la gravitÃ© lorsqu'il transporte la piÃ¨ce;B.Env 3
-;;
-Identifiant;Transport et stockage;Origine
-E.TS1;Le robot doit Ãªtre dÃ©montable et transportable dans une boite;B.TS 1
-;;
-Identifiant;Contraintes de rÃ©alisation;Origine
-E.Real 1;Le robot doit utiliser l'Ã©nergie Ã©lectrique fournie par la batterie;B.Real 1
-E.Real 2;Le robot doit avoir pour dimensions maximales 26x29 tenons;B.Real 2
-E.Real 3;Le robot doit avoir un bouton pour rÃ©aliser la mission de tri couleur;B.Real 3
-E.Real 4;Le robot doit avoir un bouton pour rÃ©aliser la mission de tri dimensionnel;B.Real 4
-;;
-Identifiant;Contraintes de mise en service;Origine
-E.MeS 1;Le robot doit Ãªtre dÃ©posÃ© par l'opÃ©rateur sur l'aire de travail;B.MeS 1
-;;
-Identifiant;Contrainte de retrait de service;Origine
-E.RdS 1;Le robot doit Ãªtre retirÃ© par l'opÃ©rateur de l'aire de travail;B.RdS 1
-;;
-Identifiant;Contraintes de Production;Origine
-E.Prod 1;Le robot doit Ãªtre constituÃ© de piÃ¨ces LEGO venant des deux kit Mindstorm uniquement;B.Prod 1
-E.Prod 2;Les instructions doivent Ãªtre programmÃ©es avec le logiciel LEGO EV3;B.Prod 2
-;;
-Identifiant;Contrainte de rÃ©glementation;Origine
-E.Reg 1;Tous les rendus doivent respecter le rÃ¨glement du concours ROBAFIS;B.Reg 1
-;;
-Identifiant;Contrainte de coÃ»t et dÃ©lais;Origine
-E.CD 1;Le robot doit Ãªtre livrÃ© dans les dÃ©lais;B.CD 1
+E.F  1	Le robot doit récupérer la pièce en entrée	B.SI 1
+E.F  1.1	Le robot doit pouvoir soulever une pièce de 60g	B.Ser 1.1
+E.F  1.2	Le robot doit pouvoir lacher la pièce avec une précision d'un tenon	B.Ser 1.2
+E.F  1.3	Le robot doit pouvoir saisir une pièce de dimension 4x4 tenons	B.Ser 1
+E.F  1.3	Le robot doit pouvoir tourner de 180° en moins de 5 secondes	B.Ser 1.3
+E.F  2	Le robot doit pouvoir détecter les couleurs (code RGB)	B.Ser 2
+E.F  2.1	Le robot doit détecter une pièce bleue	B.Ser 2.1
+E.F  2.2	Le robot doit passer en mode télé-opéré dès le début de la mission	B.Ser 2.2
+E.F  3	Le robot doit pouvoir détecter les dimensions de la pièce saisie	B.Ser 3
+E.F  3.1	Le robot doit différencier les pièces de dimension 4x4x2 des autres	B.Ser 3.1
+E.F  3.2	Le robot doit passer en mode télé-opéré dès le début de la mission	B.Ser 3.2
+E.Eff 1	Chaque tri doit être réalisé en 30s maximum	B.Eff 1
+E.Eff 2	La batterie doit pouvoir alimenter le robot pensant 6 heures minimum	B.Eff 2
+E.Eff 3	La capacité de stockage du programme doit être supérieure à 60ko	B.Eff 3
+E.Eff 4	Les commandes du robot doivent être intuitives pour l'opérateur	B.Eff 4
+E.IC 1	La batterie doit être facilement accessible	B.IC 1
+E.IC 2	Les deux programmes doivent pouvoir être intervertis en moins d'une minute	B.IC 3
+E.IC 3	La transmission des données doit se faire en bluetooth	B.IC 4
+E.IC 3.1	L'opérateur doit se trouver à moins de 10m du robot	B.IC 4
+E.IC 4	Les deux programmes doivent être prêts à être utilisés	B.IC 5
+E.FH 1	L'opérateur doit apprendre rapidement à contrôler le robot	B.FH 1
+E.SF 1	Le robot doit arrêter son mouvement en cas de perte d'équilibre	B.SF 1
+E.SF 2	La projection du robot doit rester dans l'aire de travail	B.SF 2
+E.Env 1	La zone de travail a pour dimensions 32x32 tenons	B.Env 1
+E.Env 1.1	La projection du robot doit rester dans l'aire de travail	B.Env 1
+E.Env 2	Le robot doit fonctionner dans les conditions Environnementales fixées	B.Env 2
+E.Env 2.1	La température ambiante varie entre 15°C et 32°C	B.Env 2
+E.Env 2.2	La pression atmosphérique est comprise entre 1000mb et 1030mb	B.Env 2
+E.Env 2.3	L'hygrométrie est comprise entre 40% et 75%	B.Env 2
+E.Env 2.4	La luminosité est comprise entre 100 et 300 lumen	B.Env 2
+E.Env 3	Le robot doit s'adapter à l'Environnement mécanique	B.Env 3
+E.Env 3.1	Le robot doit absorber les vibrations sans être deséquilibré	B.Env 3
+E.Env 3.2	Le robot doit compenser la gravité lorsqu'il transporte la pièce	B.Env 3
+E.TS1	Le robot doit être démontable et transportable dans une boite	B.TS 1
+E.Real 1	Le robot doit utiliser l'énergie électrique fournie par la batterie	B.Real 1
+E.Real 2	Le robot doit avoir pour dimensions maximales 26x29 tenons	B.Real 2
+E.Real 3	Le robot doit avoir un bouton pour réaliser la mission de tri couleur	B.Real 3
+E.Real 4	Le robot doit avoir un bouton pour réaliser la mission de tri dimensionnel	B.Real 4
+E.MeS 1	Le robot doit être déposé par l'opérateur sur l'aire de travail	B.MeS 1
+E.RdS 1	Le robot doit être retiré par l'opérateur de l'aire de travail	B.RdS 1
+E.Prod 1	Le robot doit être constitué de pièces LEGO venant des deux kit Mindstorm uniquement	B.Prod 1
+E.Prod 2	Les instructions doivent être programmées avec le logiciel LEGO EV3	B.Prod 2
+E.Reg 1	Tous les rendus doivent respecter le règlement du concours ROBAFIS	B.Reg 1
+E.CD 1	Le robot doit être livré dans les délais	B.CD 1

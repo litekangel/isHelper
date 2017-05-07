@@ -44,7 +44,7 @@ class BesoinsMgr():
         id_besoin = cursor.lastrowid
         db_connect.commit()
         db_connect.close()
-        return Besoin(str(id_besoin), intitule, primaire, nature)
+        return Besoin(str(id_besoin), intitule, primaire, origine, nature)
 
     def delete(self, besoin):
         if (isinstance(besoin, Besoin)):
